@@ -4,36 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Initial Unstyled UI Components</title>
+    <title>Complete Unstyled UI Components</title>
 </head>
 
 <body>
 
-    <h1 style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">1. Basic Input Field (Sesuai Log In dan Add New
-        Customer)</h1>
+    <h1>1. Input Field (Text, Password, Number)</h1>
 
     <div class="component-input-field">
-        <label for="username-input">Enter your user ID</label>
-        <input type="text" id="username-input" name="username" placeholder="Masukkan user ID Anda">
+        <label for="text-input">Text Input (User ID)</label>
+        <input type="text" id="text-input" name="username" placeholder="Masukkan user ID Anda">
     </div>
-    <br>
-    <div class="component-password-field">
-        <label for="password-input">Enter your password</label>
+
+    <div class="component-input-field">
+        <label for="password-input">Password Input</label>
         <input type="password" id="password-input" name="password" placeholder="Sandi rahasia">
+    </div>
+
+    <div class="component-input-field">
+        <label for="number-input">Number Input (Quantity)</label>
+        <input type="number" id="number-input" name="quantity" placeholder="Masukkan kuantitas (mis. 100)" min="0">
     </div>
 
     <hr>
 
-    <h1>2. Button (Sesuai 'Save', 'Cancel', 'Log In', '+ Add Customer')</h1>
+    <h1>2. Button (Primary, Secondary, Danger, Icon)</h1>
 
     <div class="component-button-group">
         <!-- Primary Action Button -->
-        <button class="btn-primary">Log In / Save</button>
+        <button class="btn-primary">Log In / Primary</button>
 
         <!-- Secondary/Ghost Action Button -->
-        <button class="btn-secondary">Cancel</button>
+        <button class="btn-secondary">Cancel / Secondary</button>
 
-        <!-- Tertiary/Icon Button (e.g., + Add Customer) -->
+        <!-- Danger Button -->
+        <button class="btn-danger">Delete / Danger</button>
+
+        <!-- Icon Button (e.g., + Add Customer) -->
         <button class="btn-icon">
             <span class="icon">+</span>
             <span>Add New</span>
@@ -42,7 +49,28 @@
 
     <hr>
 
-    <h1>3. Table (Sesuai Customer Master dan User List)</h1>
+    <h1>3. Card (Container for Widgets and Content Blocks)</h1>
+
+    <div class="component-card">
+        <div class="card-title">Progress Widget</div>
+        <div class="card-content">
+            <p>Ringkasan progress bulanan atau status notifikasi penting Anda.</p>
+            <p style="color: #4F46E5; margin-top: 10px;">Lihat Detail →</p>
+        </div>
+    </div>
+
+    <div class="component-card">
+        <div class="card-title">Dashboard Summary</div>
+        <div class="card-content">
+            <p>Total Customers: 150</p>
+            <p>Active Users: 45</p>
+            <p>Pending Orders: 12</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h1>4. Table (Basic Header and Row Structure)</h1>
 
     <div class="component-data-table">
         <h2>Customer Master List</h2>
@@ -76,13 +104,47 @@
                     <td>Jakarta</td>
                     <td><button class="btn-edit">Edit</button></td>
                 </tr>
+                <!-- Row 3 -->
+                <tr>
+                    <td>CUST-003</td>
+                    <td>Budi Santoso</td>
+                    <td>+62813...</td>
+                    <td>budi@mail.com</td>
+                    <td>Surabaya</td>
+                    <td><button class="btn-edit">Edit</button></td>
+                </tr>
             </tbody>
         </table>
     </div>
 
     <hr>
 
-    <h1>4. Checkbox (Sesuai 'I'm not a robot', 'Remember me')</h1>
+    <h1>5. Modal (Pop-up Dialog)</h1>
+
+    <button class="btn-primary" onclick="openModal()">Buka Modal</button>
+    <p style="color: #6B7280; margin-top: 10px;">Klik tombol di atas untuk membuka modal dialog.</p>
+
+    <!-- Modal Structure -->
+    <div id="myModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Konfirmasi Tindakan</div>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin memproses tindakan ini? Data yang sudah tersimpan tidak bisa dikembalikan.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal()">Batal</button>
+                <button class="btn-danger" onclick="closeModal()">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h1>6. Checkbox</h1>
 
     <div class="component-checkbox">
         <input type="checkbox" id="check-remember" name="remember-me">
@@ -93,6 +155,25 @@
         <input type="checkbox" id="check-robot" name="not-a-robot">
         <label for="check-robot">I'm not a robot</label>
     </div>
+
+    <script>
+        // Modal Functions
+        function openModal() {
+            document.getElementById('myModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 
 </body>
 
