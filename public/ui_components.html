@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initial Unstyled UI Components</title>
+</head>
+
+<body>
+
+    <h1 style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">1. Basic Input Field (Sesuai Log In dan Add New
+        Customer)</h1>
+
+    <div class="component-input-field">
+        <label for="username-input">Enter your user ID</label>
+        <input type="text" id="username-input" name="username" placeholder="Masukkan user ID Anda">
+    </div>
+    <br>
+    <div class="component-password-field">
+        <label for="password-input">Enter your password</label>
+        <input type="password" id="password-input" name="password" placeholder="Sandi rahasia">
+    </div>
+
+    <hr>
+
+    <h1>2. Button (Sesuai 'Save', 'Cancel', 'Log In', '+ Add Customer')</h1>
+
+    <div class="component-button-group">
+        <!-- Primary Action Button -->
+        <button class="btn-primary">Log In / Save</button>
+
+        <!-- Secondary/Ghost Action Button -->
+        <button class="btn-secondary">Cancel</button>
+
+        <!-- Tertiary/Icon Button (e.g., + Add Customer) -->
+        <button class="btn-icon">
+            <span class="icon">+</span>
+            <span>Add New</span>
+        </button>
+    </div>
+
+    <hr>
+
+    <h1>3. Table (Sesuai Customer Master dan User List)</h1>
+
+    <div class="component-data-table">
+        <h2>Customer Master List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Row 1 -->
+                <tr>
+                    <td>CUST-001</td>
+                    <td>John Doe</td>
+                    <td>+62812...</td>
+                    <td>john@mail.com</td>
+                    <td>Bandung</td>
+                    <td><button class="btn-edit">Edit</button></td>
+                </tr>
+                <!-- Row 2 -->
+                <tr>
+                    <td>CUST-002</td>
+                    <td>Maria Tan</td>
+                    <td>+62877...</td>
+                    <td>maria@mail.com</td>
+                    <td>Jakarta</td>
+                    <td><button class="btn-edit">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <h1>4. Checkbox (Sesuai 'I'm not a robot', 'Remember me')</h1>
+
+    <div class="component-checkbox">
+        <input type="checkbox" id="check-remember" name="remember-me">
+        <label for="check-remember">Remember me</label>
+    </div>
+
+    <div class="component-checkbox">
+        <input type="checkbox" id="check-robot" name="not-a-robot">
+        <label for="check-robot">I'm not a robot</label>
+    </div>
+
+</body>
+
+</html>
