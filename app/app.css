@@ -5,11 +5,33 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* * TEMA DEFAULT ANDA (misal: untuk User 1)
+ * Definisikan palet warna di :root
+ */
+:root {
+  --color-primary: #e31837;      /* navbar, footer */
+  --color-background: #262421;   /* background color */
+  --color-text-base: #ffffff;    /* base textcolor */
+  --color-head-table: #ff9999; /*header table*/
+  --color-firstrow: #ffcdcd; /*row table color*/
+  --color-header: #000000; /*header page*/
+  --color-second-header: #73706c; /*below header page*/
+  --color-static: #e67601 ;
+}
+
+/* * Terapkan variabel itu ke body
+ */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
+  @apply bg-background text-text-base;
 }
+
+/* * Untuk input, lebih baik gunakan class di HTML-nya
+ * (Contoh: <input className="text-black" />)
+ * Tapi jika Anda ingin SEMUA input seperti itu, Anda bisa pakai @apply:
+ */
+input {
+  @apply text-black;
+}
+
+
