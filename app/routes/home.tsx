@@ -2,6 +2,7 @@
 import type { Route } from "./+types/home";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
+import { Table } from "../components/ui/Table";
 import { useState } from "react";
 
 export function meta({ }: Route.MetaArgs) {
@@ -20,6 +21,173 @@ export default function Home() {
 
   // Validasi password: minimal 8 karakter
   const isPasswordValid = password.length >= 8;
+
+  // Data untuk Customer Table
+  const customerColumns = [
+    { key: 'customerId', header: 'Customer ID', width: '140px' },
+    { key: 'name', header: 'Name', width: '200px' },
+    { key: 'phone', header: 'Phone', width: '150px' },
+    { key: 'email', header: 'Email' },
+    { key: 'city', header: 'City', width: '150px' },
+    { key: 'action', header: 'Action', width: '100px' },
+  ];
+
+  const customerData = [
+    {
+      customerId: 'CUST-001',
+      name: 'John Doe',
+      phone: '+62812...',
+      email: 'john@mail.com',
+      city: 'Bandung',
+      action: (
+        <button className="hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+      )
+    },
+    {
+      customerId: 'CUST-002',
+      name: 'Maria Tan',
+      phone: '+62877...',
+      email: 'maria@mail.com',
+      city: 'Jakarta',
+      action: (
+        <button className="hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+      )
+    },
+    {
+      customerId: 'CUST-003',
+      name: 'Budi Santoso',
+      phone: '+62813...',
+      email: 'budi@mail.com',
+      city: 'Surabaya',
+      action: (
+        <button className="hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+      )
+    },
+  ];
+
+  // Data untuk User Table
+  const userColumns = [
+    { key: 'userId', header: 'User ID', width: '120px' },
+    { key: 'name', header: 'Name', width: '180px' },
+    { key: 'dealer', header: 'Dealer', width: '150px' },
+    { key: 'role', header: 'Role', width: '180px' },
+    { key: 'status', header: 'Status', width: '120px' },
+    { key: 'edit', header: 'Edit', width: '100px' },
+  ];
+
+  const userData = [
+    {
+      userId: 'USR001',
+      name: 'John Doe',
+      dealer: 'Bandung',
+      role: 'Dealer Admin',
+      status: 'Active',
+      edit: '-'
+    },
+    {
+      userId: 'USR002',
+      name: 'Maria Tan',
+      dealer: 'Bandung',
+      role: 'Dealer Normal',
+      status: 'Inactive',
+      edit: (
+        <button className="hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+      )
+    },
+    {
+      userId: 'USR003',
+      name: 'Budi Santoso',
+      dealer: 'Bandung',
+      role: 'DMS Admin',
+      status: 'Active',
+      edit: (
+        <button className="hover:opacity-70 transition-opacity">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+        </button>
+      )
+    },
+  ];
+
+  // Data untuk User Activity Log
+  const activityColumns = [
+    { key: 'userId', header: 'User ID', width: '120px' },
+    { key: 'activity', header: 'Activity', width: '200px' },
+    { key: 'timestamp', header: 'Timestamp', width: '200px' },
+    { key: 'status', header: 'Status', width: '150px' },
+  ];
+
+  const activityData = [
+    {
+      userId: 'USR001',
+      activity: 'Login',
+      timestamp: '2025-11-05 11:34',
+      status: 'Success',
+    },
+    {
+      userId: 'USR002',
+      activity: 'Print Report',
+      timestamp: '2025-11-05 11:34',
+      status: 'Success',
+    },
+    {
+      userId: 'USR003',
+      activity: 'Access',
+      timestamp: '2025-11-05 11:34',
+      status: 'Success',
+    },
+  ];
+
+  // Data untuk Report Summary
+  const reportColumns = [
+    { key: 'date', header: 'Date', width: '150px' },
+    { key: 'reportType', header: 'Report Type', width: '180px' },
+    { key: 'dealerBranch', header: 'Dealer Branch', width: '180px' },
+    { key: 'totalValue', header: 'Total Value', width: '150px' },
+    { key: 'status', header: 'Status', width: '150px' },
+  ];
+
+  const reportData = [
+    {
+      date: '05-11-2025',
+      reportType: 'Sales',
+      dealerBranch: 'Bandung',
+      totalValue: 'Rp 123',
+      status: 'Completed',
+    },
+    {
+      date: '05-11-2025',
+      reportType: 'MRN',
+      dealerBranch: 'Bandung',
+      totalValue: 'Rp 123',
+      status: 'Pending',
+    },
+    {
+      date: '05-11-2025',
+      reportType: 'Service',
+      dealerBranch: 'Bandung',
+      totalValue: 'Rp 123',
+      status: 'Completed',
+    },
+  ];
+
   return (
     <div className="p-6">
       {/* H1 dengan warna dari color palette */}
@@ -27,7 +195,7 @@ export default function Home() {
         UI Component Style
       </h1>
 
-      {/* SATU DIV BESAR untuk semua button */}
+      {/* DIV untuk semua button */}
       <div
         className="mt-6 p-6 rounded-lg space-y-8"
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
@@ -148,7 +316,7 @@ export default function Home() {
       </div>
       {/* END: SATU DIV BESAR BUTTON */}
 
-      {/* DIV BARU untuk semua Input */}
+      {/* DIV untuk semua Input */}
       <div
         className="mt-6 p-6 rounded-lg space-y-8"
         style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
@@ -241,6 +409,59 @@ export default function Home() {
 
       </div>
       {/* END: DIV INPUT */}
+
+      {/* DIV untuk Table */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+
+        {/* Section 1: Customer Master */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Customer Master
+          </h2>
+          <Table
+            columns={customerColumns}
+            data={customerData}
+          />
+        </div>
+
+        {/* Section 2: User List */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            User List
+          </h2>
+          <Table
+            columns={userColumns}
+            data={userData}
+          />
+        </div>
+
+        {/* Section 3: User Activity Log */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            User Activity Log
+          </h2>
+          <Table
+            columns={activityColumns}
+            data={activityData}
+          />
+        </div>
+
+        {/* Section 4: Report Summary */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Report Summary
+          </h2>
+          <Table
+            columns={reportColumns}
+            data={reportData}
+          />
+        </div>
+
+      </div>
+      {/* END: DIV TABLE */}
 
     </div>
   );

@@ -75,6 +75,13 @@ export const Input: React.FC<InputProps> = ({
                     type={inputType}
                     className={`${combinedClassName} ${iconPaddingLeft} ${passwordPadding}`}
                     disabled={disabled}
+                    min={variant === 'number' ? '0' : undefined}
+                    onKeyDown={variant === 'number' ? (e) => {
+                        // Cegah input minus, plus, dan karakter e/E
+                        if (e.key === '-' || e.key === '+' || e.key === 'e' || e.key === 'E') {
+                            e.preventDefault();
+                        }
+                    } : undefined}
                     {...props}
                 />
 
