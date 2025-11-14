@@ -9,21 +9,70 @@
  * Definisikan palet warna di :root
  */
 :root {
-  --color-primary: #e31837;      /* navbar, footer */
-  --color-background: #262421;   /* background color */
-  --color-text-base: #ffffff;    /* base textcolor */
-  --color-head-table: #ff9999; /*header table*/
-  --color-firstrow: #ffcdcd; /*row table color*/
-  --color-header: #000000; /*header page*/
-  --color-second-header: #73706c; /*below header page*/
-  --color-static: #e67601 ;
+  /* Color Variables (from Default Theme) */
+  --color-primary: #e31837;
+  /* navbar, footer */
+  --color-background: #262421;
+  /* background color */
+  --color-text-base: #ffffff;
+  /* base textcolor */
+  --color-head-table: #ff9999;
+  /* header table */
+  --color-firstrow: #ffcdcd;
+  /* row table color */
+  --color-header: #000000;
+  /* header page */
+  --color-second-header: #73706c;
+  /* below header page */
+  --color-static: #e67601;
+
+  /*
+|--------------------------------------------------------------------------
+| Global Typography Variables
+|--------------------------------------------------------------------------
+| Defined based on Font Family, Header Weight, and Font Size specs (cite: 3, 8, 9, 10)
+*/
+
+  /* Font Family (Example: Assume a common sans-serif font) */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Font Weights (Adjust based on Header Weight specification - cite: 8) */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  /* Used for main headers */
+
+  /* Font Sizes (Adjust based on Font Size specification - cite: 9) */
+  --font-size-base: 1rem;
+  /* Base paragraph/label size */
+  --font-size-sm: 0.875rem;
+  /* Smaller text, like label 'Need help?' (cite: 17) or table data */
+  --font-size-lg: 1.125rem;
+
+  /* Header Sizes (H1 is often used for page titles like 'WELCOME' (cite: 12) or 'Add New Customer' (cite: 254)) */
+  --font-size-h1: 2rem;
+  --font-size-h2: 1.5rem;
+  --font-size-h3: 1.25rem;
 }
 
 /* * Terapkan variabel itu ke body
  */
 html,
 body {
-  @apply bg-background text-text-base;
+  background-color: var(--color-background);
+  color: var(--color-text-base);
+
+  /*
+|--------------------------------------------------------------------------
+| Base/Global Styles
+|--------------------------------------------------------------------------
+*/
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  /* color: var(--color-text-base); (sudah diterapkan di atas) */
 }
 
 /* * Untuk input, lebih baik gunakan class di HTML-nya
@@ -34,4 +83,59 @@ input {
   @apply text-black;
 }
 
+/*
+|--------------------------------------------------------------------------
+| Heading Styles (H1 - H3)
+|--------------------------------------------------------------------------
+*/
 
+h1,
+h2,
+h3 {
+  font-weight: var(--font-weight-bold);
+  /* Using the bold weight for headers (cite: 8) */
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  /* Used for main page titles (e.g., WELCOME ) */
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  /* Used for major section titles (e.g., Customer Master) */
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  /* Used for card/widget titles (e.g., Progress) */
+}
+
+/*
+|--------------------------------------------------------------------------
+| Specific UI Element Styles
+|--------------------------------------------------------------------------
+| Styles for common elements like labels, buttons, and table headers.
+*/
+
+/* Labels and Form Inputs (e.g., Enter your user ID) */
+label,
+input,
+select,
+textarea {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Smaller, less prominent text (e.g., 'Need help?', table data) */
+.text-small {
+  font-size: var(--font-size-sm);
+}
+
+/* Table Headers (e.g., Customer ID, Name, Phone) */
+th {
+  font-weight: var(--font-weight-medium);
+  /* Slightly heavier than regular text for emphasis */
+}
