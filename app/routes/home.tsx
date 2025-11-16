@@ -3,6 +3,8 @@ import type { Route } from "./+types/home";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Table } from "../components/ui/Table";
+import Card from "../components/ui/Card";
+import Modal from "../components/ui/Modal";
 import { useState } from "react";
 
 export function meta({ }: Route.MetaArgs) {
@@ -15,6 +17,7 @@ export function meta({ }: Route.MetaArgs) {
 export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Validasi username: minimal 3 karakter
   const isUsernameValid = username.length >= 3;
@@ -462,6 +465,73 @@ export default function Home() {
 
       </div>
       {/* END: DIV TABLE */}
+
+      {/* DIV untuk Card */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Card Component
+          </h2>
+
+          <div className="space-y-4">
+            {/* Card with Title */}
+            <Card title="Card with Title">
+              <p className="text-gray-700">This is a card component with a title header.</p>
+            </Card>
+
+            {/* Card without Title */}
+            <Card>
+              <p className="text-gray-700">This is a card without a title.</p>
+            </Card>
+
+            {/* Card with Custom Content */}
+            <Card title="User Information">
+              <div className="space-y-2 text-gray-700">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john@example.com</p>
+                <p><strong>Role:</strong> Administrator</p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+      {/* END: DIV CARD */}
+
+      {/* DIV untuk Modal */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Modal Component
+          </h2>
+
+          <div className="flex flex-wrap gap-4">
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Open Modal
+            </Button>
+          </div>
+
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="Example Modal"
+            size="md"
+          >
+            <p>This is the content inside the modal!</p>
+            <p className="mt-2">You can add any content here.</p>
+          </Modal>
+        </div>
+      </div>
+      {/* END: DIV MODAL */}
 
     </div>
   );
