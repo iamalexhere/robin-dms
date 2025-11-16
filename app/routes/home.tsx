@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Table } from "../components/ui/Table";
-import Card from "../components /ui/Card";
+import Card from "../components/ui/Card";
 import Modal from "../components/ui/Modal";
 import { useState } from "react";
 
