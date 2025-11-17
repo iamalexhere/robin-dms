@@ -18,7 +18,7 @@ export default function Dashboard() {
 
                 <Button
                     variant="primary"
-                    size="md"
+                    size="lg"
                     onClick={handleLogout}
                 >
                     Log Out
