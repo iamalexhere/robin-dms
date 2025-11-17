@@ -18,6 +18,23 @@ export default function Login() {
   //Validasi username dan Password
  const canSubmit = isUsernameValid && isPasswordValid;
 
+    //Handle submit
+    function handleSubmit(e) {
+    e.preventDefault(); //supaya tidak reload page
+
+    setTouched({
+      username: true,
+      password: true,
+    });
+
+    if (!canSubmit) {
+      return; //jangan submit kalau belum valid
+    }
+
+    //kalau valid, lanjut login request ke server (nanti)
+  }
+
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col m-16 p-12 rounded-2xl backdrop-blur-lg shadow-xl border-white/10 border max-w-lg w-full justify-center items-center"  style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)'}}>
@@ -26,16 +43,17 @@ export default function Login() {
           <h1>Welcome!</h1>
           <div>Please enter your details.</div>
         </div>
-        <form className="login-form w-full">
+        <form className="login-form w-full" onSubmit={handleSubmit}>
           <div className="userid-section flex flex-row gap-4 mt-4 mb-4">
               <Input
                 variant="text"
                 label="Username"
                 placeholder="Enter your username"
-                error="Username is required"
+                error={!isUsernameValid && touched.username ? "Username is required" : ""} 
                 isValid={isUsernameValid}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onBlur={() => setTouched({...touched, username: true})}  // <-- penting!
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -47,10 +65,11 @@ export default function Login() {
               variant="password"
               label="Password"
               placeholder="Enter your password"
-              error="Password must be at least 8 characters"
+              error={!isPasswordValid && touched.password ? "Password must be at least 8 characters" : ""}
               isValid={isPasswordValid}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => setTouched({...touched, password: true})}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
