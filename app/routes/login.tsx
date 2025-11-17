@@ -1,18 +1,32 @@
 import { Button } from "~/components/ui/Button";
 import { Input } from "~/components/ui/Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import base_logo from "../../public/image/base_logo@2.png";
 import usersData from "~/data/users.json";
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Error states untuk masing-masing field
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  // Load saved credentials saat komponen mount
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('savedUsername');
+    const savedPassword = localStorage.getItem('savedPassword');
+    const wasRemembered = localStorage.getItem('rememberMe') === 'true';
+
+    if (wasRemembered && savedUsername && savedPassword) {
+      setUsername(savedUsername);
+      setPassword(savedPassword);
+      setRememberMe(true);
+    }
+  }, []);
 
   // Fungsi untuk handle login
   const handleLogin = (e: React.FormEvent) => {
@@ -55,8 +69,22 @@ export default function Login() {
       // Login berhasil
       console.log('Login successful!', user);
 
-      // Simpan user data ke sessionStorage (opsional)
+      // Handle Remember Me
+      if (rememberMe) {
+        // Simpan credentials ke localStorage
+        localStorage.setItem('savedUsername', username);
+        localStorage.setItem('savedPassword', password);
+        localStorage.setItem('rememberMe', 'true');
+      } else {
+        // Hapus saved credentials jika Remember Me tidak dicentang
+        localStorage.removeItem('savedUsername');
+        localStorage.removeItem('savedPassword');
+        localStorage.removeItem('rememberMe');
+      }
+
+      // Simpan user session (bisa pakai sessionStorage atau localStorage)
       sessionStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('authToken', 'your-generated-token-here');
 
       // Redirect ke dashboard
       window.location.href = '/dashboard';
@@ -119,8 +147,13 @@ export default function Login() {
           </div>
 
           <div className="flex flex-row gap-4 place-content-between">
-            <label className="flex flex-row gap-2">
-              <input type="checkbox" style={{ zoom: 1.5 }} />
+            <label className="flex flex-row gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                style={{ zoom: 1.5 }}
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
               Remember me
             </label>
             <div className="ml-auto mr-4">
