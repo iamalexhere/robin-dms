@@ -54,10 +54,12 @@ export default function Login() {
 
       // Login berhasil
       console.log('Login successful!', user);
-      alert(`Welcome ${user.name}!`);
 
-      // TODO: Redirect ke dashboard atau simpan session
-      // navigate('/dashboard');
+      // Simpan user data ke sessionStorage (opsional)
+      sessionStorage.setItem('user', JSON.stringify(user));
+
+      // Redirect ke dashboard
+      window.location.href = '/dashboard';
 
       setIsLoading(false);
     }, 1000);
@@ -81,12 +83,12 @@ export default function Login() {
               variant="text"
               label="Username"
               placeholder="Enter your username"
-              error={usernameError} // Error dari state
-              isValid={!usernameError} // Valid jika tidak ada error
+              error={usernameError}
+              isValid={!usernameError}
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
-                setUsernameError(''); // Clear error saat user mengetik
+                setUsernameError('');
               }}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,12 +103,12 @@ export default function Login() {
               variant="password"
               label="Password"
               placeholder="Enter your password"
-              error={passwordError} // Error dari state
-              isValid={!passwordError} // Valid jika tidak ada error
+              error={passwordError}
+              isValid={!passwordError}
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                setPasswordError(''); // Clear error saat user mengetik
+                setPasswordError('');
               }}
               icon={
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
