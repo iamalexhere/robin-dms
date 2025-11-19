@@ -9,6 +9,7 @@ export default function ChangePassword() {
   const [password, setPassword] = useState('');
   const [confirm_password, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Error states untuk field password error
   const [passwordError, setPasswordError] = useState('');
@@ -42,6 +43,7 @@ export default function ChangePassword() {
 
       //Password telah diubah
       console.log('Password Changed', user);
+      setIsModalOpen(true);
 
       setIsLoading(false);
     }, 1000);
@@ -110,6 +112,27 @@ export default function ChangePassword() {
           </div>
         </form>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Password changed!"
+        size="md"
+        >
+        <div className="mt-2">Your password has been changed successfully.</div>
+        <div className="flex items-center justify-center mt-10">
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => {
+              window.location.href = '/login';
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Loading...' : 'Return to login'}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
