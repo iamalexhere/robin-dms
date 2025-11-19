@@ -5,6 +5,8 @@ import { Input } from "../components/ui/Input";
 import { Table } from "../components/ui/Table";
 import Card from "../components/ui/Card";
 import Modal from "../components/ui/Modal";
+import Filter from "../components/ui/Filter";
+import Search from "../components/ui/Search";
 import { useState } from "react";
 
 export function meta({ }: Route.MetaArgs) {
@@ -18,6 +20,9 @@ export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [role, setRole] = useState("");
+  const [query, setQuery] = useState("");
+
 
   // Validasi username: minimal 3 karakter
   const isUsernameValid = username.length >= 3;
@@ -533,6 +538,26 @@ export default function Home() {
       </div>
       {/* END: DIV MODAL */}
 
+      <div className="p-6 flex gap-4">
+        <Filter
+          value={role}
+          onChange={setRole}
+          placeholder="Filter by role"
+          options={[
+            { label: "All", value: "all" },
+            { label: "Admin", value: "admin" },
+            { label: "Manager", value: "manager" },
+            { label: "Staff", value: "staff" },
+          ]}
+        />
+      </div>
+      <div className="p-6">
+        <Search
+          value={query}
+          onChange={setQuery}
+          placeholder="Search by ID, name, or role"
+        />
+      </div>
     </div>
   );
 }
