@@ -54,7 +54,7 @@ export default function ResetPassword() {
           <div>Enter your email and we'll send you a password reset link.</div>
         </div>
 
-        <form className="reset-passwowrd-form w-full" onSubmit={handleResetPassword}>
+        <form className="reset-password-form w-full" onSubmit={handleResetPassword}>
           <div className="userid-section flex flex-row gap-4 mt-4 mb-4">
             <Input
               variant="text"
@@ -95,6 +95,18 @@ export default function ResetPassword() {
         >
         <div>Check your email for a link to reset your password.</div>
         <div className="mt-2">If it doesn't appear within a few minutes, check your spam folder.</div>
+        <div className="flex items-center justify-center mt-10">
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => {
+              window.location.href = '/change_password';
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Loading...' : 'Email being sent'}
+          </Button>
+        </div>
       </Modal>
     </div>
   );
