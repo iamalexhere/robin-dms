@@ -33,7 +33,7 @@ export default function ChangePassword() {
         setIsLoading(false);
         return
       }
-      if (password != confirm_password){
+      if (password != confirm_password) {
         setConfirmPasswordError('Passwords do not match')
         setIsLoading(false);
         return
@@ -118,7 +118,7 @@ export default function ChangePassword() {
         onClose={() => setIsModalOpen(false)}
         title="Password changed!"
         size="md"
-        >
+      >
         <div className="mt-2">Your password has been changed successfully.</div>
         <div className="flex items-center justify-center mt-10">
           <Button

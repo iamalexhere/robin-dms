@@ -25,7 +25,7 @@ export default function ResetPassword() {
     setTimeout(() => {
       // Cari user di data JSON
       const user = usersData.users.find(
-        (u) => u.email === email 
+        (u) => u.email === email
       );
 
       if (!user) {
@@ -84,6 +84,16 @@ export default function ResetPassword() {
               {isLoading ? 'Loading...' : 'Send password reset email'}
             </Button>
           </div>
+
+          <div className="flex items-center justify-center mt-4">
+            <button
+              type="button"
+              onClick={() => window.location.href = '/login'}
+              className="text-white hover:underline text-base"
+            >
+              Back
+            </button>
+          </div>
         </form>
       </div>
 
@@ -92,7 +102,7 @@ export default function ResetPassword() {
         onClose={() => setIsModalOpen(false)}
         title="Reset password sent!"
         size="md"
-        >
+      >
         <div>Check your email for a link to reset your password.</div>
         <div className="mt-2">If it doesn't appear within a few minutes, check your spam folder.</div>
         <div className="flex items-center justify-center mt-10">
@@ -111,4 +121,3 @@ export default function ResetPassword() {
     </div>
   );
 }
-
