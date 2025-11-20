@@ -1,0 +1,28 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "admin",
+            "password": "admin123",
+            "email": "admin@gmail.com",
+            "role": "admin",
+            "name": "Admin User"
+        },
+        {
+            "id": 2,
+            "username": "dealer1",
+            "password": "dealer123",
+            "email": "dealer@gmail.com",
+            "role": "dealer",
+            "name": "John Dealer"
+        },
+        {
+            "id": 3,
+            "username": "employee1",
+            "password": "employee123",
+            "email": "employee1@gmail.com",
+            "role": "employee",
+            "name": "Jane Employee"
+        }
+    ]
+}

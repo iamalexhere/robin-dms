@@ -1,0 +1,102 @@
+/*
+|--------------------------------------------------------------------------
+| Global Typography Variables
+|--------------------------------------------------------------------------
+| Defined based on Font Family, Header Weight, and Font Size specs (cite: 3, 8, 9, 10)
+*/
+
+:root {
+    /* Font Family (Example: Assume a common sans-serif font) */
+    --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    /* Font Weights (Adjust based on Header Weight specification - cite: 8) */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    /* Used for main headers */
+
+    /* Font Sizes (Adjust based on Font Size specification - cite: 9) */
+    --font-size-base: 1rem;
+    /* Base paragraph/label size */
+    --font-size-sm: 0.875rem;
+    /* Smaller text, like label 'Need help?' (cite: 17) or table data */
+    --font-size-lg: 1.125rem;
+
+    /* Header Sizes (H1 is often used for page titles like 'WELCOME' (cite: 12) or 'Add New Customer' (cite: 254)) */
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h3: 1.25rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Base/Global Styles
+|--------------------------------------------------------------------------
+*/
+
+body {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    /* Assuming a color variable is also set */
+}
+
+/*
+|--------------------------------------------------------------------------
+| Heading Styles (H1 - H3)
+|--------------------------------------------------------------------------
+*/
+
+h1,
+h2,
+h3 {
+    font-weight: var(--font-weight-bold);
+    /* Using the bold weight for headers (cite: 8) */
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    /* Used for main page titles (e.g., WELCOME ) */
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    /* Used for major section titles (e.g., Customer Master [cite: 55]) */
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+    /* Used for card/widget titles (e.g., Progress [cite: 19]) */
+}
+
+/*
+|--------------------------------------------------------------------------
+| Specific UI Element Styles
+|--------------------------------------------------------------------------
+| Styles for common elements like labels, buttons, and table headers.
+*/
+
+/* Labels and Form Inputs (e.g., Enter your user ID [cite: 13]) */
+label,
+input,
+select,
+textarea {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+}
+
+/* Smaller, less prominent text (e.g., 'Need help?'[cite: 17], table data) */
+.text-small {
+    font-size: var(--font-size-sm);
+}
+
+/* Table Headers (e.g., Customer ID, Name, Phone [cite: 34, 35, 36]) */
+th {
+    font-weight: var(--font-weight-medium);
+    /* Slightly heavier than regular text for emphasis */
+}
