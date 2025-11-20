@@ -89,7 +89,7 @@ export default function ResetPassword() {
             <button
               type="button"
               onClick={() => window.location.href = '/login'}
-              className="text-white hover:underline text-base"
+              className="underline"
             >
               Back
             </button>
