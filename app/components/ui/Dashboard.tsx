@@ -1,15 +1,43 @@
+// app/routes/dashboard.tsx
 import { useState } from 'react';
-import Header from './Header';
-import Sidebar from './Side';
-import Footer from './Footer';
+import Header from '~/components/ui/Header';
+import Sidebar from '~/components/ui/Side';
+import Footer from '~/components/ui/Footer';
 
-interface DashboardProps {
-    children?: React.ReactNode;
-}
+// Import semua konten
+import DashboardContent from '~/components/ui/content/DashboardContent';
+import UserManagement from '~/components/ui/content/UserManagement';
+import ManufactureComponent from '~/components/ui/content/ManufacturComponent';
+import ReportsContent from '~/components/ui/content/ReportsContent';
+import MasterComponent from '~/components/ui/content/MasterComponent';
+import SystemSettingsContent from '~/components/ui/content/SystemSettingsContent';
+import Terms from '~/components/ui/content/TermsConditionsContent';
 
-export default function Dashboard({ children }: DashboardProps) {
+export default function DashboardPage() {
     const [activeItem, setActiveItem] = useState('dashboard');
     const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    // Function untuk render konten berdasarkan activeItem
+    const renderContent = () => {
+        switch (activeItem) {
+            case 'dashboard':
+                return <DashboardContent />;
+            case 'user-management':
+                return <UserManagement />;
+            case 'manufacturer':
+                return <ManufactureComponent />;
+            case 'reports':
+                return <ReportsContent />;
+            case 'masters':
+                return <MasterComponent />;
+            case 'system-settings':
+                return <SystemSettingsContent />;
+            case 'terms':
+                return <Terms />;
+            default:
+                return <DashboardContent />;
+        }
+    };
 
     return (
         <div className="flex flex-col h-screen" style={{ backgroundColor: '#323232ff' }}>
@@ -27,16 +55,7 @@ export default function Dashboard({ children }: DashboardProps) {
 
                 {/* Content Area */}
                 <main className="flex-1 overflow-y-auto" style={{ backgroundColor: '#323232ff' }}>
-                    {children || (
-                        <div className="p-4 pt-3">
-                            <h1 className="text-3xl font-bold text-white mb-4">
-                                {activeItem.charAt(0).toUpperCase() + activeItem.slice(1).replace('-', ' ')}
-                            </h1>
-                            <p className="text-gray-400">
-                                Content untuk {activeItem} akan ditampilkan di sini.
-                            </p>
-                        </div>
-                    )}
+                    {renderContent()}
                 </main>
             </div>
 
