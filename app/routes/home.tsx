@@ -7,7 +7,6 @@ import Card from "../components/ui/Card";
 import Modal from "../components/ui/Modal";
 import Filter from "../components/ui/Filter";
 import Search from "../components/ui/Search";
-import Dashboard from "../components/ui/Dashboard";
 import { useState } from "react";
 
 export function meta({ }: Route.MetaArgs) {
@@ -197,387 +196,384 @@ export default function Home() {
   ];
 
   return (
-    <Dashboard>
-      {/* Main Content - Sekarang di dalam Dashboard */}
-      <div className="px-4 pt-3 pb-4">
-        {/* H1 dengan warna dari color palette */}
-        <h1 style={{ color: 'var(--color-primary)' }}>
-          UI Component Style
-        </h1>
+    <div className="px-4 pt-3 pb-4">
+      {/* H1 dengan warna dari color palette */}
+      <h1 style={{ color: 'var(--color-primary)' }}>
+        UI Component Style
+      </h1>
 
-        {/* DIV untuk semua button */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          {/* Section 1: Button Variants */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Button Variants
-            </h2>
+      {/* DIV untuk semua button */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        {/* Section 1: Button Variants */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Button Variants
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary" size="md">
+              Primary
+            </Button>
+            <Button variant="secondary" size="md">
+              Secondary
+            </Button>
+            <Button variant="danger" size="md">
+              Delete
+            </Button>
+            <Button variant="ghost" size="md">
+              Ghost
+            </Button>
+          </div>
+        </div>
+
+        {/* Section 2: Button Sizes */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Button Sizes
+          </h2>
+
+          {/* Small Size */}
+          <div className="mb-6">
+            <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
+              Small (sm)
+            </h3>
+            <div className="flex flex-wrap gap-4">
+              <Button variant="primary" size="sm">
+                Small Primary
+              </Button>
+              <Button variant="secondary" size="sm">
+                Small Secondary
+              </Button>
+              <Button variant="danger" size="sm">
+                Small Danger
+              </Button>
+              <Button variant="ghost" size="sm">
+                Small Ghost
+              </Button>
+            </div>
+          </div>
+
+          {/* Medium Size */}
+          <div className="mb-6">
+            <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
+              Medium (md)
+            </h3>
             <div className="flex flex-wrap gap-4">
               <Button variant="primary" size="md">
-                Primary
+                Medium Primary
               </Button>
               <Button variant="secondary" size="md">
-                Secondary
+                Medium Secondary
               </Button>
               <Button variant="danger" size="md">
-                Delete
+                Medium Danger
               </Button>
               <Button variant="ghost" size="md">
-                Ghost
+                Medium Ghost
               </Button>
             </div>
           </div>
 
-          {/* Section 2: Button Sizes */}
+          {/* Large Size */}
           <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Button Sizes
-            </h2>
-
-            {/* Small Size */}
-            <div className="mb-6">
-              <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
-                Small (sm)
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" size="sm">
-                  Small Primary
-                </Button>
-                <Button variant="secondary" size="sm">
-                  Small Secondary
-                </Button>
-                <Button variant="danger" size="sm">
-                  Small Danger
-                </Button>
-                <Button variant="ghost" size="sm">
-                  Small Ghost
-                </Button>
-              </div>
-            </div>
-
-            {/* Medium Size */}
-            <div className="mb-6">
-              <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
-                Medium (md)
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" size="md">
-                  Medium Primary
-                </Button>
-                <Button variant="secondary" size="md">
-                  Medium Secondary
-                </Button>
-                <Button variant="danger" size="md">
-                  Medium Danger
-                </Button>
-                <Button variant="ghost" size="md">
-                  Medium Ghost
-                </Button>
-              </div>
-            </div>
-
-            {/* Large Size */}
-            <div>
-              <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
-                Large (lg)
-              </h3>
-              <div className="flex flex-wrap gap-4">
-                <Button variant="primary" size="lg">
-                  Large Primary
-                </Button>
-                <Button variant="secondary" size="lg">
-                  Large Secondary
-                </Button>
-                <Button variant="danger" size="lg">
-                  Large Danger
-                </Button>
-                <Button variant="ghost" size="lg">
-                  Large Ghost
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Section 3: Disabled State */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Disabled State
-            </h2>
+            <h3 className="mb-3 text-sm" style={{ color: 'var(--color-text-base)', opacity: 0.7 }}>
+              Large (lg)
+            </h3>
             <div className="flex flex-wrap gap-4">
-              <Button variant="primary" size="md" disabled>
-                Disabled Primary
+              <Button variant="primary" size="lg">
+                Large Primary
               </Button>
-              <Button variant="secondary" size="md" disabled>
-                Disabled Secondary
+              <Button variant="secondary" size="lg">
+                Large Secondary
               </Button>
-              <Button variant="danger" size="md" disabled>
-                Disabled Danger
+              <Button variant="danger" size="lg">
+                Large Danger
               </Button>
-              <Button variant="ghost" size="md" disabled>
-                Disabled Ghost
-              </Button>
-            </div>
-          </div>
-        </div>
-        {/* END: SATU DIV BESAR BUTTON */}
-
-        {/* DIV untuk semua Input */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          {/* Section 1: Input Variants */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Input Variants
-            </h2>
-            <div className="space-y-4">
-              <Input
-                variant="text"
-                label="Text Input"
-                placeholder="Enter text..."
-              />
-              <Input
-                variant="password"
-                label="Password Input"
-                placeholder="Enter password..."
-              />
-              <Input
-                variant="number"
-                label="Number Input"
-                placeholder="Enter number..."
-              />
-            </div>
-          </div>
-
-          {/* Section 2: Error State */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Error State
-            </h2>
-            <div className="space-y-4">
-              <Input
-                variant="text"
-                label="Username"
-                placeholder="Enter username"
-                error="Username is required"
-                isValid={isUsernameValid}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                }
-              />
-              <Input
-                variant="password"
-                label="Password"
-                placeholder="Enter password"
-                error="Password must be at least 8 characters"
-                isValid={isPasswordValid}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                }
-              />
-            </div>
-          </div>
-
-          {/* Section 3: Disabled State */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Disabled State
-            </h2>
-            <div className="space-y-4">
-              <Input
-                variant="text"
-                placeholder="Disabled text input"
-                disabled
-              />
-              <Input
-                variant="password"
-                placeholder="Disabled password"
-                disabled
-              />
-              <Input
-                variant="number"
-                placeholder="Disabled number"
-                disabled
-              />
-            </div>
-          </div>
-        </div>
-        {/* END: DIV INPUT */}
-
-        {/* DIV untuk Table */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          {/* Section 1: Customer Master */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Customer Master
-            </h2>
-            <Table
-              columns={customerColumns}
-              data={customerData}
-            />
-          </div>
-
-          {/* Section 2: User List */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              User List
-            </h2>
-            <Table
-              columns={userColumns}
-              data={userData}
-            />
-          </div>
-
-          {/* Section 3: User Activity Log */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              User Activity Log
-            </h2>
-            <Table
-              columns={activityColumns}
-              data={activityData}
-            />
-          </div>
-
-          {/* Section 4: Report Summary */}
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Report Summary
-            </h2>
-            <Table
-              columns={reportColumns}
-              data={reportData}
-            />
-          </div>
-        </div>
-        {/* END: DIV TABLE */}
-
-        {/* DIV untuk Card */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Card Component
-            </h2>
-
-            <div className="space-y-4">
-              {/* Card with Title */}
-              <Card title="Card with Title">
-                <p className="text-gray-700">This is a card component with a title header.</p>
-              </Card>
-
-              {/* Card without Title */}
-              <Card>
-                <p className="text-gray-700">This is a card without a title.</p>
-              </Card>
-
-              {/* Card with Custom Content */}
-              <Card title="User Information">
-                <div className="space-y-2 text-gray-700">
-                  <p><strong>Name:</strong> John Doe</p>
-                  <p><strong>Email:</strong> john@example.com</p>
-                  <p><strong>Role:</strong> Administrator</p>
-                </div>
-              </Card>
-            </div>
-          </div>
-        </div>
-        {/* END: DIV CARD */}
-
-        {/* DIV untuk Modal */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Modal Component
-            </h2>
-
-            <div className="flex flex-wrap gap-4">
-              <Button
-                variant="primary"
-                size="md"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Open Modal
+              <Button variant="ghost" size="lg">
+                Large Ghost
               </Button>
             </div>
-
-            <Modal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              title="Example Modal"
-              size="md"
-            >
-              <p>This is the content inside the modal!</p>
-              <p className="mt-2">You can add any content here.</p>
-            </Modal>
           </div>
         </div>
-        {/* END: DIV MODAL */}
 
-        {/* DIV untuk Filter */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Filter Component
-            </h2>
-
-            <Filter
-              value={role}
-              onChange={setRole}
-              placeholder="Filter by role"
-              options={[
-                { label: "All", value: "all" },
-                { label: "Admin", value: "admin" },
-                { label: "Manager", value: "manager" },
-                { label: "Staff", value: "staff" },
-              ]}
-            />
+        {/* Section 3: Disabled State */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Disabled State
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            <Button variant="primary" size="md" disabled>
+              Disabled Primary
+            </Button>
+            <Button variant="secondary" size="md" disabled>
+              Disabled Secondary
+            </Button>
+            <Button variant="danger" size="md" disabled>
+              Disabled Danger
+            </Button>
+            <Button variant="ghost" size="md" disabled>
+              Disabled Ghost
+            </Button>
           </div>
         </div>
-        {/* END: DIV FILTER */}
-
-        {/* DIV untuk Search */}
-        <div
-          className="mt-6 p-6 rounded-lg space-y-8"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-        >
-          <div>
-            <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
-              Search Component
-            </h2>
-
-            <Search
-              value={query}
-              onChange={setQuery}
-              placeholder="Search by ID, name, or role"
-            />
-          </div>
-        </div>
-        {/* END: DIV SEARCH */}
       </div>
-    </Dashboard>
+      {/* END: SATU DIV BESAR BUTTON */}
+
+      {/* DIV untuk semua Input */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        {/* Section 1: Input Variants */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Input Variants
+          </h2>
+          <div className="space-y-4">
+            <Input
+              variant="text"
+              label="Text Input"
+              placeholder="Enter text..."
+            />
+            <Input
+              variant="password"
+              label="Password Input"
+              placeholder="Enter password..."
+            />
+            <Input
+              variant="number"
+              label="Number Input"
+              placeholder="Enter number..."
+            />
+          </div>
+        </div>
+
+        {/* Section 2: Error State */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Error State
+          </h2>
+          <div className="space-y-4">
+            <Input
+              variant="text"
+              label="Username"
+              placeholder="Enter username"
+              error="Username is required"
+              isValid={isUsernameValid}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              }
+            />
+            <Input
+              variant="password"
+              label="Password"
+              placeholder="Enter password"
+              error="Password must be at least 8 characters"
+              isValid={isPasswordValid}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              }
+            />
+          </div>
+        </div>
+
+        {/* Section 3: Disabled State */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Disabled State
+          </h2>
+          <div className="space-y-4">
+            <Input
+              variant="text"
+              placeholder="Disabled text input"
+              disabled
+            />
+            <Input
+              variant="password"
+              placeholder="Disabled password"
+              disabled
+            />
+            <Input
+              variant="number"
+              placeholder="Disabled number"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+      {/* END: DIV INPUT */}
+
+      {/* DIV untuk Table */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        {/* Section 1: Customer Master */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Customer Master
+          </h2>
+          <Table
+            columns={customerColumns}
+            data={customerData}
+          />
+        </div>
+
+        {/* Section 2: User List */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            User List
+          </h2>
+          <Table
+            columns={userColumns}
+            data={userData}
+          />
+        </div>
+
+        {/* Section 3: User Activity Log */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            User Activity Log
+          </h2>
+          <Table
+            columns={activityColumns}
+            data={activityData}
+          />
+        </div>
+
+        {/* Section 4: Report Summary */}
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Report Summary
+          </h2>
+          <Table
+            columns={reportColumns}
+            data={reportData}
+          />
+        </div>
+      </div>
+      {/* END: DIV TABLE */}
+
+      {/* DIV untuk Card */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Card Component
+          </h2>
+
+          <div className="space-y-4">
+            {/* Card with Title */}
+            <Card title="Card with Title">
+              <p className="text-gray-700">This is a card component with a title header.</p>
+            </Card>
+
+            {/* Card without Title */}
+            <Card>
+              <p className="text-gray-700">This is a card without a title.</p>
+            </Card>
+
+            {/* Card with Custom Content */}
+            <Card title="User Information">
+              <div className="space-y-2 text-gray-700">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Email:</strong> john@example.com</p>
+                <p><strong>Role:</strong> Administrator</p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+      {/* END: DIV CARD */}
+
+      {/* DIV untuk Modal */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Modal Component
+          </h2>
+
+          <div className="flex flex-wrap gap-4">
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Open Modal
+            </Button>
+          </div>
+
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="Example Modal"
+            size="md"
+          >
+            <p>This is the content inside the modal!</p>
+            <p className="mt-2">You can add any content here.</p>
+          </Modal>
+        </div>
+      </div>
+      {/* END: DIV MODAL */}
+
+      {/* DIV untuk Filter */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Filter Component
+          </h2>
+
+          <Filter
+            value={role}
+            onChange={setRole}
+            placeholder="Filter by role"
+            options={[
+              { label: "All", value: "all" },
+              { label: "Admin", value: "admin" },
+              { label: "Manager", value: "manager" },
+              { label: "Staff", value: "staff" },
+            ]}
+          />
+        </div>
+      </div>
+      {/* END: DIV FILTER */}
+
+      {/* DIV untuk Search */}
+      <div
+        className="mt-6 p-6 rounded-lg space-y-8"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+      >
+        <div>
+          <h2 className="mb-3" style={{ color: 'var(--color-text-base)' }}>
+            Search Component
+          </h2>
+
+          <Search
+            value={query}
+            onChange={setQuery}
+            placeholder="Search by ID, name, or role"
+          />
+        </div>
+      </div>
+      {/* END: DIV SEARCH */}
+    </div>
   );
 }
