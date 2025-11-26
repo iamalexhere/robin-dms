@@ -17,7 +17,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-2xl bg-white shadow-md border border-gray-100 p-0 overflow-hidden ${className}`}
+      className={`rounded-2xl bg-white shadow-md border border-gray-100 overflow-hidden ${className}`}
     >
       {/* Header */}
       {title && (
@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({
       )}
 
       {/* Body */}
-      <div className={`px-4 py-4 ${bodyClassName}`}>{children}</div>
+      <div className={`px-4 pb-4 pt-3 ${bodyClassName}`}>{children}</div>
     </div>
   );
 };

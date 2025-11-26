@@ -203,13 +203,13 @@ const DashboardContent = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Repair Order Chart */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600">
                         <h3 className="text-lg font-bold text-orange-400 mb-3">Repair Order</h3>
                         <PizzaPieChart data={repairData} />
                     </div>
 
                     {/* Statistics Card 1 */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 flex flex-col justify-center">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600 flex flex-col justify-center">
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Total Orders</p>
@@ -230,7 +230,7 @@ const DashboardContent = () => {
                     </div>
 
                     {/* Statistics Card 2 */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 flex flex-col justify-center">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600 flex flex-col justify-center">
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Active Users</p>
@@ -264,7 +264,7 @@ const DashboardContent = () => {
                     {newsItems.map((news) => (
                         <div
                             key={news.id}
-                            className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.01] cursor-pointer"
+                            className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl pt-3 px-4 pb-4 shadow-xl border border-amber-600 hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.01] cursor-pointer"
                         >
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">
