@@ -1,8 +1,21 @@
 import { useState } from 'react';
+import { getUser, getUserInitials, clearSession } from '~/utils/auth';
 
 export default function Profile() {
     const [showNotifications, setShowNotifications] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
+
+    // Get current user from session
+    const user = getUser();
+    const userName = user?.name || 'Guest';
+    const userInitials = getUserInitials(userName);
+
+    const handleLogout = () => {
+        // Clear session data
+        clearSession();
+        // Redirect to login
+        window.location.href = '/login';
+    };
 
     return (
         <div className="flex items-center gap-4">
@@ -50,9 +63,9 @@ export default function Profile() {
                     className="flex items-center gap-2 p-2 hover:bg-white/10 rounded transition-colors"
                 >
                     <div className="w-8 h-8 rounded-full flex items-center justify-center bg-green-600">
-                        <span className="text-white text-sm font-semibold">N</span>
+                        <span className="text-white text-sm font-semibold">{userInitials}</span>
                     </div>
-                    <span className="text-white">Name</span>
+                    <span className="text-white">{userName}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`h-4 w-4 text-white transition-transform ${showUserMenu ? 'rotate-180' : ''}`}
@@ -76,7 +89,7 @@ export default function Profile() {
                             Settings
                         </button>
                         <button
-                            onClick={() => window.location.href = '/login'}
+                            onClick={handleLogout}
                             className="w-full text-left px-4 py-3 text-white hover:bg-white/10 transition-colors border-t border-white/10"
                         >
                             Logout
