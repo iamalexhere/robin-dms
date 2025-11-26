@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import dashboardStats from '~/data/dashboard-stats.json';
+import newsData from '~/data/news.json';
 
 // Simple SVG Icons
 const WrenchIcon = () => (
@@ -162,35 +164,10 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
 };
 
 const DashboardContent = () => {
-    // Data untuk Repair Order Pie Chart
-    const repairData: RepairData[] = [
-        { name: 'Completed', value: 45, color: '#3B82F6' },
-        { name: 'In Progress', value: 25, color: '#EAB308' },
-        { name: 'Pending', value: 20, color: '#22C55E' },
-        { name: 'Cancelled', value: 10, color: '#EF4444' }
-    ];
-
-    // Sample news data
-    const newsItems: NewsItem[] = [
-        {
-            id: 1,
-            title: 'System Maintenance Scheduled',
-            date: '2025-11-25',
-            description: 'Scheduled maintenance will occur on Sunday, 2 AM - 4 AM'
-        },
-        {
-            id: 2,
-            title: 'New Feature: Advanced Reporting',
-            date: '2025-11-20',
-            description: 'Enhanced reporting capabilities now available in Reports section'
-        },
-        {
-            id: 3,
-            title: 'Monthly Performance Review',
-            date: '2025-11-15',
-            description: 'Q4 performance metrics show 25% improvement in efficiency'
-        }
-    ];
+    // Fetch data from JSON files
+    const repairData: RepairData[] = dashboardStats.repairOrders;
+    const stats = dashboardStats.statistics;
+    const newsItems: NewsItem[] = newsData.news;
 
     return (
         <div className="p-6">
@@ -213,17 +190,17 @@ const DashboardContent = () => {
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Total Orders</p>
-                                <p className="text-3xl font-bold text-white mt-1">248</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.totalOrders.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↑ 12%</span>
-                                    <span className="text-gray-400 text-xs">vs last month</span>
+                                    <span className="text-green-400 text-xs">{stats.totalOrders.trend === 'up' ? '↑' : '↓'} {stats.totalOrders.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.totalOrders.changeLabel}</span>
                                 </div>
                             </div>
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Completion Rate</p>
-                                <p className="text-3xl font-bold text-white mt-1">92%</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.completionRate.value}{stats.completionRate.unit}</p>
                                 <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
-                                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '92%' }}></div>
+                                    <div className="bg-green-500 h-2 rounded-full" style={{ width: `${stats.completionRate.value}%` }}></div>
                                 </div>
                             </div>
                         </div>
@@ -234,18 +211,18 @@ const DashboardContent = () => {
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Active Users</p>
-                                <p className="text-3xl font-bold text-white mt-1">156</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.activeUsers.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↑ 8%</span>
-                                    <span className="text-gray-400 text-xs">vs last week</span>
+                                    <span className="text-green-400 text-xs">{stats.activeUsers.trend === 'up' ? '↑' : '↓'} {stats.activeUsers.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.activeUsers.changeLabel}</span>
                                 </div>
                             </div>
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Avg. Response Time</p>
-                                <p className="text-3xl font-bold text-white mt-1">2.4h</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.avgResponseTime.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↓ 15%</span>
-                                    <span className="text-gray-400 text-xs">improved</span>
+                                    <span className="text-green-400 text-xs">{stats.avgResponseTime.trend === 'down' ? '↓' : '↑'} {stats.avgResponseTime.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.avgResponseTime.changeLabel}</span>
                                 </div>
                             </div>
                         </div>
