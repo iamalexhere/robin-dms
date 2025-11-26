@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
+import { getUser } from '~/utils/auth';
+import { filterByRole, checkRoleAccess, type UserRole } from '~/utils/roleUtils';
+
+// Import data
 import dashboardStats from '~/data/dashboard-stats.json';
 import newsData from '~/data/news.json';
+import activitiesData from '~/data/activities.json';
+import trainingsData from '~/data/trainings.json';
+import birthdaysData from '~/data/birthdays.json';
+import kpiData from '~/data/kpi.json';
+import misData from '~/data/mis-reports.json';
+
+// Import widgets
+import MyActivityWidget from '~/components/ui/widgets/MyActivityWidget';
+import UpcomingTrainingsWidget from '~/components/ui/widgets/UpcomingTrainingsWidget';
+import BirthdayCalendarWidget from '~/components/ui/widgets/BirthdayCalendarWidget';
+import KPIWidget from '~/components/ui/widgets/KPIWidget';
+import MISWidget from '~/components/ui/widgets/MISWidget';
 
 // Simple SVG Icons
 const WrenchIcon = () => (
@@ -52,7 +68,6 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
     });
 
     const createSlice = (startAngle: number, angle: number, radius: number, isHovered: boolean) => {
-        // Add offset untuk hover effect
         const offset = isHovered ? 8 : 0;
         const centerAngle = startAngle + angle / 2;
         const centerRad = (centerAngle - 90) * (Math.PI / 180);
@@ -107,7 +122,6 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
                                 onMouseEnter={() => setHoveredIndex(segment.index)}
                                 onMouseLeave={() => setHoveredIndex(null)}
                             />
-                            {/* Label di tengah slice */}
                             {segment.angle > 30 && (
                                 <text
                                     x={120 + 55 * Math.cos((segment.startAngle + segment.angle / 2 - 90) * (Math.PI / 180))}
@@ -164,10 +178,25 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
 };
 
 const DashboardContent = () => {
-    // Fetch data from JSON files
+    // Get current user and role
+    const user = getUser();
+    const userRole = (user?.role || 'dealer_normal_user') as UserRole;
+
+    // Fetch and filter data based on role
     const repairData: RepairData[] = dashboardStats.repairOrders;
     const stats = dashboardStats.statistics;
     const newsItems: NewsItem[] = newsData.news;
+
+    // Filter role-based data
+    const activities = filterByRole(activitiesData.activities, userRole);
+    const trainings = filterByRole(trainingsData.trainings, userRole);
+    const birthdays = filterByRole(birthdaysData.birthdays, userRole);
+    const kpiMetrics = filterByRole(kpiData.metrics, userRole);
+    const misReports = filterByRole(misData.reports, userRole);
+
+    // Check widget access
+    const hasKPIAccess = checkRoleAccess(kpiData.hasAccess, userRole);
+    const hasMISAccess = checkRoleAccess(misData.hasAccess, userRole);
 
     return (
         <div className="p-6">
@@ -228,6 +257,24 @@ const DashboardContent = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* New Widgets Section - 2 Column Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                {/* My Activity Widget */}
+                {activities.length > 0 && <MyActivityWidget activities={activities} />}
+
+                {/* Upcoming Trainings Widget */}
+                {trainings.length > 0 && <UpcomingTrainingsWidget trainings={trainings} />}
+
+                {/* Birthday Calendar Widget */}
+                {birthdays.length > 0 && <BirthdayCalendarWidget birthdays={birthdays} />}
+
+                {/* KPI Widget - Only for admin, business user, and dealer admin */}
+                {hasKPIAccess && kpiMetrics.length > 0 && <KPIWidget metrics={kpiMetrics} />}
+
+                {/* MIS Widget - Only for admin, business user, and dealer admin */}
+                {hasMISAccess && misReports.length > 0 && <MISWidget reports={misReports} />}
             </div>
 
             {/* News & Events Section */}

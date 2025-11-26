@@ -1,0 +1,53 @@
+{
+    "hasAccess": {
+        "dms_admin": true,
+        "dms_business_user": true,
+        "dealer_admin": true,
+        "dealer_normal_user": false
+    },
+    "reports": [
+        {
+            "id": 1,
+            "name": "Monthly Sales Report",
+            "lastUpdated": "2025-11-25",
+            "status": "Available",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Service Performance Report",
+            "lastUpdated": "2025-11-24",
+            "status": "Available",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Inventory Analysis",
+            "lastUpdated": "2025-11-23",
+            "status": "Available",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Financial Summary",
+            "lastUpdated": "2025-11-26",
+            "status": "Available",
+            "roles": [
+                "dms_admin",
+                "dms_business_user"
+            ]
+        }
+    ]
+}
