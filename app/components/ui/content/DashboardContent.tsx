@@ -198,6 +198,10 @@ const DashboardContent = () => {
     const hasKPIAccess = checkRoleAccess(kpiData.hasAccess, userRole);
     const hasMISAccess = checkRoleAccess(misData.hasAccess, userRole);
 
+    // Type assertion needed because JSON loading doesn't preserve literal types
+    type KPIMetricType = typeof kpiData.metrics[0] & { trend: 'up' | 'down' };
+
+
     return (
         <div className="p-6">
             {/* Progress Section */}
@@ -259,23 +263,28 @@ const DashboardContent = () => {
                 </div>
             </div>
 
-            {/* New Widgets Section - 2 Column Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-                {/* My Activity Widget */}
-                {activities.length > 0 && <MyActivityWidget activities={activities} />}
+            {/* New Widgets Section - Improved Grid Layout */}
+            <div className="mb-6 space-y-4">
+                {/* Row 1: My Activity + Upcoming Trainings */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {activities.length > 0 && <MyActivityWidget activities={activities} />}
+                    {trainings.length > 0 && <UpcomingTrainingsWidget trainings={trainings} />}
+                </div>
 
-                {/* Upcoming Trainings Widget */}
-                {trainings.length > 0 && <UpcomingTrainingsWidget trainings={trainings} />}
+                {/* Row 2: Birthday Calendar + KPI Dashboard */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {birthdays.length > 0 && <BirthdayCalendarWidget birthdays={birthdays} />}
+                    {hasKPIAccess && kpiMetrics.length > 0 && <KPIWidget metrics={kpiMetrics} />}
+                </div>
 
-                {/* Birthday Calendar Widget */}
-                {birthdays.length > 0 && <BirthdayCalendarWidget birthdays={birthdays} />}
-
-                {/* KPI Widget - Only for admin, business user, and dealer admin */}
-                {hasKPIAccess && kpiMetrics.length > 0 && <KPIWidget metrics={kpiMetrics} />}
-
-                {/* MIS Widget - Only for admin, business user, and dealer admin */}
-                {hasMISAccess && misReports.length > 0 && <MISWidget reports={misReports} />}
+                {/* Row 3: MIS Reports (can span if alone) */}
+                {hasMISAccess && misReports.length > 0 && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <MISWidget reports={misReports} />
+                    </div>
+                )}
             </div>
+
 
             {/* News & Events Section */}
             <div>

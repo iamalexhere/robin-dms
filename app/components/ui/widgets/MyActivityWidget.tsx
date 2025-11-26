@@ -19,10 +19,10 @@ const MyActivityWidget: React.FC<MyActivityWidgetProps> = ({ activities }) => {
     }
 
     return (
-        <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600">
+        <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 h-full flex flex-col">
             <h3 className="text-xl font-bold text-orange-400 mb-4">My Activity</h3>
 
-            <div className="space-y-3">
+            <div className="space-y-3 flex-1 overflow-y-auto max-h-[400px]">
                 {activities.map((activity) => (
                     <div
                         key={activity.id}

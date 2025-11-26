@@ -26,7 +26,7 @@ const KPIWidget: React.FC<KPIWidgetProps> = ({ metrics }) => {
     return (
         <div
             onClick={handleNavigateToKPI}
-            className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 cursor-pointer hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.02]"
+            className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 cursor-pointer hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.02] h-full flex flex-col"
         >
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-orange-400">KPI Dashboard</h3>
@@ -35,16 +35,16 @@ const KPIWidget: React.FC<KPIWidgetProps> = ({ metrics }) => {
                 </svg>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 flex-1">
                 {metrics.slice(0, 4).map((metric) => (
                     <div
                         key={metric.id}
-                        className="bg-black bg-opacity-30 rounded-xl p-3"
+                        className="bg-black bg-opacity-30 rounded-xl p-4 flex flex-col justify-center"
                     >
                         <p className="text-amber-300 text-xs font-medium mb-1">
                             {metric.name}
                         </p>
-                        <p className="text-white font-bold text-lg mb-1">
+                        <p className="text-white font-bold text-xl mb-2">
                             {metric.value}
                         </p>
                         <div className="flex items-center gap-1">

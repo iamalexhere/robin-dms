@@ -41,12 +41,12 @@ const UpcomingTrainingsWidget: React.FC<UpcomingTrainingsWidgetProps> = ({ train
     const currentTraining = trainings[currentIndex];
 
     return (
-        <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600">
+        <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 h-full flex flex-col">
             <h3 className="text-xl font-bold text-orange-400 mb-4">Upcoming Trainings</h3>
 
-            <div className="relative">
+            <div className="flex-1 flex flex-col justify-between">
                 {/* Training Card */}
-                <div className="bg-black bg-opacity-30 rounded-xl p-5 min-h-[140px]">
+                <div className="bg-black bg-opacity-30 rounded-xl p-5 flex-1 flex flex-col justify-center">
                     <h4 className="text-white font-bold text-lg mb-2">
                         {currentTraining.name}
                     </h4>
@@ -73,6 +73,7 @@ const UpcomingTrainingsWidget: React.FC<UpcomingTrainingsWidgetProps> = ({ train
                         <button
                             onClick={handlePrevious}
                             className="p-2 bg-orange-500 bg-opacity-20 rounded-full hover:bg-opacity-30 transition-all"
+                            aria-label="Previous training"
                         >
                             <svg className="w-5 h-5 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -85,10 +86,11 @@ const UpcomingTrainingsWidget: React.FC<UpcomingTrainingsWidgetProps> = ({ train
                                 <button
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
-                                    className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
+                                    className={`h-2 rounded-full transition-all ${index === currentIndex
                                             ? 'bg-orange-400 w-6'
-                                            : 'bg-orange-400 bg-opacity-30'
+                                            : 'bg-orange-400 bg-opacity-30 w-2'
                                         }`}
+                                    aria-label={`Go to training ${index + 1}`}
                                 />
                             ))}
                         </div>
@@ -96,6 +98,7 @@ const UpcomingTrainingsWidget: React.FC<UpcomingTrainingsWidgetProps> = ({ train
                         <button
                             onClick={handleNext}
                             className="p-2 bg-orange-500 bg-opacity-20 rounded-full hover:bg-opacity-30 transition-all"
+                            aria-label="Next training"
                         >
                             <svg className="w-5 h-5 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

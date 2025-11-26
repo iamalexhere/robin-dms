@@ -25,7 +25,7 @@ const MISWidget: React.FC<MISWidgetProps> = ({ reports }) => {
     return (
         <div
             onClick={handleNavigateToMIS}
-            className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 cursor-pointer hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.02]"
+            className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-6 shadow-xl border border-amber-600 cursor-pointer hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.02] h-full flex flex-col"
         >
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-orange-400">MIS Reports</h3>
@@ -34,11 +34,11 @@ const MISWidget: React.FC<MISWidgetProps> = ({ reports }) => {
                 </svg>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3 flex-1">
                 {reports.slice(0, 3).map((report) => (
                     <div
                         key={report.id}
-                        className="bg-black bg-opacity-30 rounded-xl p-3 hover:bg-opacity-40 transition-all"
+                        className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all"
                     >
                         <div className="flex items-start justify-between">
                             <div className="flex-1">

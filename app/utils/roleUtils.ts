@@ -3,7 +3,7 @@
 export type UserRole = 'dms_admin' | 'dms_business_user' | 'dealer_admin' | 'dealer_normal_user';
 
 interface RoleBasedItem {
-    roles: UserRole[];
+    roles: string[]; // Changed from UserRole[] to string[] for flexibility
     [key: string]: any;
 }
 
