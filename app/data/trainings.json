@@ -1,0 +1,58 @@
+{
+    "trainings": [
+        {
+            "id": 1,
+            "name": "Service Management Training",
+            "date": "2025-12-01",
+            "description": "Advanced service management techniques and best practices",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Safety Procedures Workshop",
+            "date": "2025-12-05",
+            "description": "Workplace safety training and compliance",
+            "roles": [
+                "dms_admin",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Customer Service Excellence",
+            "date": "2025-12-10",
+            "description": "Enhancing customer satisfaction and retention",
+            "roles": [
+                "dms_admin",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Business Analytics & Reporting",
+            "date": "2025-12-15",
+            "description": "Data-driven decision making for managers",
+            "roles": [
+                "dms_admin",
+                "dms_business_user"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Parts Inventory Management",
+            "date": "2025-12-20",
+            "description": "Efficient parts tracking and ordering",
+            "roles": [
+                "dms_admin",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        }
+    ]
+}

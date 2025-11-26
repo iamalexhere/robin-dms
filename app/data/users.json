@@ -2,27 +2,39 @@
     "users": [
         {
             "id": 1,
-            "username": "admin",
+            "username": "dmsadmin",
             "password": "admin123",
-            "email": "admin@gmail.com",
-            "role": "admin",
-            "name": "Admin User"
+            "email": "dmsadmin@robin.com",
+            "role": "dms_admin",
+            "name": "DMS Admin",
+            "description": "System-level administrator"
         },
         {
             "id": 2,
-            "username": "dealer1",
-            "password": "dealer123",
-            "email": "dealer@gmail.com",
-            "role": "dealer",
-            "name": "John Dealer"
+            "username": "businessuser",
+            "password": "business123",
+            "email": "business@robin.com",
+            "role": "dms_business_user",
+            "name": "Business Manager",
+            "description": "Manager/power user for operations and reporting"
         },
         {
             "id": 3,
-            "username": "employee1",
-            "password": "employee123",
-            "email": "employee1@gmail.com",
-            "role": "employee",
-            "name": "Jane Employee"
+            "username": "dealeradmin",
+            "password": "dealeradmin123",
+            "email": "dealeradmin@dealer.com",
+            "role": "dealer_admin",
+            "name": "Dealer Admin",
+            "description": "Manages settings and users for dealership"
+        },
+        {
+            "id": 4,
+            "username": "dealeruser",
+            "password": "dealer123",
+            "email": "dealeruser@dealer.com",
+            "role": "dealer_normal_user",
+            "name": "Service Advisor",
+            "description": "Frontline staff (Salesperson/Service Advisor/Parts Staff)"
         }
     ]
 }

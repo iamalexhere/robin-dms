@@ -1,0 +1,56 @@
+{
+    "birthdays": [
+        {
+            "id": 1,
+            "employeeName": "John Smith",
+            "date": "2025-11-28",
+            "department": "Service",
+            "position": "Service Advisor",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 2,
+            "employeeName": "Sarah Johnson",
+            "date": "2025-11-30",
+            "department": "Sales",
+            "position": "Sales Executive",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 3,
+            "employeeName": "Michael Brown",
+            "date": "2025-12-02",
+            "department": "Parts",
+            "position": "Parts Manager",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 4,
+            "employeeName": "Emily Davis",
+            "date": "2025-12-05",
+            "department": "Finance",
+            "position": "Accountant",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        }
+    ]
+}

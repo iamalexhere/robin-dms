@@ -1,0 +1,22 @@
+{
+    "news": [
+        {
+            "id": 1,
+            "title": "System Maintenance Scheduled",
+            "date": "2025-11-25",
+            "description": "Scheduled maintenance will occur on Sunday, 2 AM - 4 AM"
+        },
+        {
+            "id": 2,
+            "title": "New Feature: Advanced Reporting",
+            "date": "2025-11-20",
+            "description": "Enhanced reporting capabilities now available in Reports section"
+        },
+        {
+            "id": 3,
+            "title": "Monthly Performance Review",
+            "date": "2025-11-15",
+            "description": "Q4 performance metrics show 25% improvement in efficiency"
+        }
+    ]
+}
