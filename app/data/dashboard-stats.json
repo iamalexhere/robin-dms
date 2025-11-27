@@ -1,0 +1,48 @@
+{
+    "repairOrders": [
+        {
+            "name": "Completed",
+            "value": 45,
+            "color": "#3B82F6"
+        },
+        {
+            "name": "In Progress",
+            "value": 25,
+            "color": "#EAB308"
+        },
+        {
+            "name": "Pending",
+            "value": 20,
+            "color": "#22C55E"
+        },
+        {
+            "name": "Cancelled",
+            "value": 10,
+            "color": "#EF4444"
+        }
+    ],
+    "statistics": {
+        "totalOrders": {
+            "value": 248,
+            "change": "+12%",
+            "changeLabel": "vs last month",
+            "trend": "up"
+        },
+        "completionRate": {
+            "value": 92,
+            "unit": "%"
+        },
+        "activeUsers": {
+            "value": 156,
+            "change": "+8%",
+            "changeLabel": "vs last week",
+            "trend": "up"
+        },
+        "avgResponseTime": {
+            "value": "2.4h",
+            "change": "-15%",
+            "changeLabel": "improved",
+            "trend": "down"
+        }
+    }
+}

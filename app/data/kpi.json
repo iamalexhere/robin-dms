@@ -1,0 +1,57 @@
+{
+    "hasAccess": {
+        "dms_admin": true,
+        "dms_business_user": true,
+        "dealer_admin": true,
+        "dealer_normal_user": false
+    },
+    "metrics": [
+        {
+            "id": 1,
+            "name": "Service Efficiency",
+            "value": "92%",
+            "trend": "up",
+            "change": "+5%",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Customer Satisfaction",
+            "value": "4.8/5",
+            "trend": "up",
+            "change": "+0.3",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Parts Turnover",
+            "value": "85%",
+            "trend": "down",
+            "change": "-2%",
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Revenue Growth",
+            "value": "+15%",
+            "trend": "up",
+            "change": "+3%",
+            "roles": [
+                "dms_admin",
+                "dms_business_user"
+            ]
+        }
+    ]
+}

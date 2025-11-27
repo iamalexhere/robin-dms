@@ -1,4 +1,22 @@
 import React, { useState } from 'react';
+import { getUser } from '~/utils/auth';
+import { filterByRole, checkRoleAccess, type UserRole } from '~/utils/roleUtils';
+
+// Import data
+import dashboardStats from '~/data/dashboard-stats.json';
+import newsData from '~/data/news.json';
+import activitiesData from '~/data/activities.json';
+import trainingsData from '~/data/trainings.json';
+import birthdaysData from '~/data/birthdays.json';
+import kpiData from '~/data/kpi.json';
+import misData from '~/data/mis-reports.json';
+
+// Import widgets
+import MyActivityWidget from '~/components/ui/widgets/MyActivityWidget';
+import UpcomingTrainingsWidget from '~/components/ui/widgets/UpcomingTrainingsWidget';
+import BirthdayCalendarWidget from '~/components/ui/widgets/BirthdayCalendarWidget';
+import KPIWidget from '~/components/ui/widgets/KPIWidget';
+import MISWidget from '~/components/ui/widgets/MISWidget';
 
 // Simple SVG Icons
 const WrenchIcon = () => (
@@ -50,7 +68,6 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
     });
 
     const createSlice = (startAngle: number, angle: number, radius: number, isHovered: boolean) => {
-        // Add offset untuk hover effect
         const offset = isHovered ? 8 : 0;
         const centerAngle = startAngle + angle / 2;
         const centerRad = (centerAngle - 90) * (Math.PI / 180);
@@ -105,7 +122,6 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
                                 onMouseEnter={() => setHoveredIndex(segment.index)}
                                 onMouseLeave={() => setHoveredIndex(null)}
                             />
-                            {/* Label di tengah slice */}
                             {segment.angle > 30 && (
                                 <text
                                     x={120 + 55 * Math.cos((segment.startAngle + segment.angle / 2 - 90) * (Math.PI / 180))}
@@ -162,35 +178,29 @@ const PizzaPieChart = ({ data }: { data: RepairData[] }) => {
 };
 
 const DashboardContent = () => {
-    // Data untuk Repair Order Pie Chart
-    const repairData: RepairData[] = [
-        { name: 'Completed', value: 45, color: '#3B82F6' },
-        { name: 'In Progress', value: 25, color: '#EAB308' },
-        { name: 'Pending', value: 20, color: '#22C55E' },
-        { name: 'Cancelled', value: 10, color: '#EF4444' }
-    ];
+    // Get current user and role
+    const user = getUser();
+    const userRole = (user?.role || 'dealer_normal_user') as UserRole;
 
-    // Sample news data
-    const newsItems: NewsItem[] = [
-        {
-            id: 1,
-            title: 'System Maintenance Scheduled',
-            date: '2025-11-25',
-            description: 'Scheduled maintenance will occur on Sunday, 2 AM - 4 AM'
-        },
-        {
-            id: 2,
-            title: 'New Feature: Advanced Reporting',
-            date: '2025-11-20',
-            description: 'Enhanced reporting capabilities now available in Reports section'
-        },
-        {
-            id: 3,
-            title: 'Monthly Performance Review',
-            date: '2025-11-15',
-            description: 'Q4 performance metrics show 25% improvement in efficiency'
-        }
-    ];
+    // Fetch and filter data based on role
+    const repairData: RepairData[] = dashboardStats.repairOrders;
+    const stats = dashboardStats.statistics;
+    const newsItems: NewsItem[] = newsData.news;
+
+    // Filter role-based data
+    const activities = filterByRole(activitiesData.activities, userRole);
+    const trainings = filterByRole(trainingsData.trainings, userRole);
+    const birthdays = filterByRole(birthdaysData.birthdays, userRole);
+    const kpiMetrics = filterByRole(kpiData.metrics, userRole);
+    const misReports = filterByRole(misData.reports, userRole);
+
+    // Check widget access
+    const hasKPIAccess = checkRoleAccess(kpiData.hasAccess, userRole);
+    const hasMISAccess = checkRoleAccess(misData.hasAccess, userRole);
+
+    // Type assertion needed because JSON loading doesn't preserve literal types
+    type KPIMetricType = typeof kpiData.metrics[0] & { trend: 'up' | 'down' };
+
 
     return (
         <div className="p-6">
@@ -203,55 +213,78 @@ const DashboardContent = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                     {/* Repair Order Chart */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600">
                         <h3 className="text-lg font-bold text-orange-400 mb-3">Repair Order</h3>
                         <PizzaPieChart data={repairData} />
                     </div>
 
                     {/* Statistics Card 1 */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 flex flex-col justify-center">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600 flex flex-col justify-center">
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Total Orders</p>
-                                <p className="text-3xl font-bold text-white mt-1">248</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.totalOrders.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↑ 12%</span>
-                                    <span className="text-gray-400 text-xs">vs last month</span>
+                                    <span className="text-green-400 text-xs">{stats.totalOrders.trend === 'up' ? '↑' : '↓'} {stats.totalOrders.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.totalOrders.changeLabel}</span>
                                 </div>
                             </div>
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Completion Rate</p>
-                                <p className="text-3xl font-bold text-white mt-1">92%</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.completionRate.value}{stats.completionRate.unit}</p>
                                 <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
-                                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '92%' }}></div>
+                                    <div className="bg-green-500 h-2 rounded-full" style={{ width: `${stats.completionRate.value}%` }}></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Statistics Card 2 */}
-                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 flex flex-col justify-center">
+                    <div className="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-xl border border-amber-600 flex flex-col justify-center">
                         <div className="space-y-3">
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Active Users</p>
-                                <p className="text-3xl font-bold text-white mt-1">156</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.activeUsers.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↑ 8%</span>
-                                    <span className="text-gray-400 text-xs">vs last week</span>
+                                    <span className="text-green-400 text-xs">{stats.activeUsers.trend === 'up' ? '↑' : '↓'} {stats.activeUsers.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.activeUsers.changeLabel}</span>
                                 </div>
                             </div>
                             <div className="bg-black bg-opacity-30 rounded-xl p-4 hover:bg-opacity-40 transition-all duration-200">
                                 <p className="text-amber-300 text-sm font-medium">Avg. Response Time</p>
-                                <p className="text-3xl font-bold text-white mt-1">2.4h</p>
+                                <p className="text-3xl font-bold text-white mt-1">{stats.avgResponseTime.value}</p>
                                 <div className="mt-2 flex items-center gap-1">
-                                    <span className="text-green-400 text-xs">↓ 15%</span>
-                                    <span className="text-gray-400 text-xs">improved</span>
+                                    <span className="text-green-400 text-xs">{stats.avgResponseTime.trend === 'down' ? '↓' : '↑'} {stats.avgResponseTime.change}</span>
+                                    <span className="text-gray-400 text-xs">{stats.avgResponseTime.changeLabel}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* New Widgets Section - Improved Grid Layout */}
+            <div className="mb-6 space-y-4">
+                {/* Row 1: My Activity + Upcoming Trainings */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {activities.length > 0 && <MyActivityWidget activities={activities} />}
+                    {trainings.length > 0 && <UpcomingTrainingsWidget trainings={trainings} />}
+                </div>
+
+                {/* Row 2: Birthday Calendar + KPI Dashboard */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    {birthdays.length > 0 && <BirthdayCalendarWidget birthdays={birthdays} />}
+                    {hasKPIAccess && kpiMetrics.length > 0 && <KPIWidget metrics={kpiMetrics} />}
+                </div>
+
+                {/* Row 3: MIS Reports (can span if alone) */}
+                {hasMISAccess && misReports.length > 0 && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <MISWidget reports={misReports} />
+                    </div>
+                )}
+            </div>
+
 
             {/* News & Events Section */}
             <div>
@@ -264,7 +297,7 @@ const DashboardContent = () => {
                     {newsItems.map((news) => (
                         <div
                             key={news.id}
-                            className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl p-5 shadow-xl border border-amber-600 hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.01] cursor-pointer"
+                            className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl pt-3 px-4 pb-4 shadow-xl border border-amber-600 hover:shadow-amber-500/20 transition-all duration-300 hover:scale-[1.01] cursor-pointer"
                         >
                             <div className="flex items-start justify-between">
                                 <div className="flex-1">

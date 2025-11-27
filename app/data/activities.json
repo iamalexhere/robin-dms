@@ -1,0 +1,72 @@
+{
+    "activities": [
+        {
+            "id": 1,
+            "module": "Service",
+            "serialNo": "SRV-2024-001",
+            "description": "Pending approval for job cards",
+            "count": 5,
+            "roles": [
+                "dms_admin",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 2,
+            "module": "Parts",
+            "serialNo": "PRT-2024-002",
+            "description": "Parts requisition pending",
+            "count": 3,
+            "roles": [
+                "dms_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 3,
+            "module": "Reports",
+            "serialNo": "RPT-2024-003",
+            "description": "Monthly report review",
+            "count": 2,
+            "roles": [
+                "dms_admin",
+                "dms_business_user"
+            ]
+        },
+        {
+            "id": 4,
+            "module": "Sales",
+            "serialNo": "SAL-2024-004",
+            "description": "Customer follow-ups pending",
+            "count": 8,
+            "roles": [
+                "dms_admin",
+                "dealer_admin",
+                "dealer_normal_user"
+            ]
+        },
+        {
+            "id": 5,
+            "module": "Inventory",
+            "serialNo": "INV-2024-005",
+            "description": "Stock reconciliation required",
+            "count": 4,
+            "roles": [
+                "dms_admin",
+                "dms_business_user",
+                "dealer_admin"
+            ]
+        },
+        {
+            "id": 6,
+            "module": "Finance",
+            "serialNo": "FIN-2024-006",
+            "description": "Payment approvals pending",
+            "count": 6,
+            "roles": [
+                "dms_admin",
+                "dms_business_user"
+            ]
+        }
+    ]
+}
