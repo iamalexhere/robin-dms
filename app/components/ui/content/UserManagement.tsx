@@ -6,7 +6,11 @@ import { Input } from "../Input";            // :contentReference[oaicite:3]{ind
 
 type ActiveTab = "customer" | "vehicle" | "dealer";
 
-export default function UserManagement() {
+type UserManagementProps = {
+    setActiveItem: (value: string) => void;
+};
+
+export default function UserManagement({ setActiveItem }: UserManagementProps) {
     const [activeTab, setActiveTab] = useState<ActiveTab>("customer");
     const [search, setSearch] = useState("");
     const [isAddOpen, setIsAddOpen] = useState(false);
@@ -115,8 +119,7 @@ export default function UserManagement() {
                             variant="danger"
                             className="rounded-full px-6 py-3 ml-6 bg-red-600 hover:bg-red-700 text-lg"
                             onClick={() => {
-                                setSelectedItem(null);
-                                setIsAddOpen(true);
+                                setActiveItem('add-customer');
                             }}
                         >
                             + {getAddLabel(activeTab)}

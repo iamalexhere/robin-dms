@@ -7,6 +7,7 @@ import Footer from '~/components/ui/Footer';
 // Import semua konten
 import DashboardContent from '~/components/ui/content/DashboardContent';
 import UserManagement from '~/components/ui/content/UserManagement';
+import AddCustomer from '~/components/ui/content/AddCustomer';
 import ManufactureComponent from '~/components/ui/content/ManufacturComponent';
 import ReportsContent from '~/components/ui/content/ReportsContent';
 import MasterComponent from '~/components/ui/content/MasterComponent';
@@ -23,7 +24,9 @@ export default function DashboardPage() {
             case 'dashboard':
                 return <DashboardContent />;
             case 'user-management':
-                return <UserManagement />;
+                return <UserManagement setActiveItem={setActiveItem} />;
+            case 'add-customer':
+                return <AddCustomer/>;
             case 'manufacturer':
                 return <ManufactureComponent />;
             case 'reports':
