@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-    variant?: 'text' | 'password' | 'number';
+    variant?: 'text' | 'password' | 'number' | 'date';
     size?: 'sm' | 'md' | 'lg';
     label?: string;
     error?: string;
@@ -29,7 +29,8 @@ export const Input: React.FC<InputProps> = ({
     const variantStyles = {
         text: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
         password: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
-        number: 'border-[var(--color-second-header)] focus:border-black focus:ring-black'
+        number: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
+        date: 'border-[var(--color-second-header)] focus:border-black focus:ring-black'
     };
 
     const sizeStyles = {

@@ -1,56 +1,135 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Button } from "../Button";
+import { Input } from "../Input";
+import Filter from "../Filter";
 
-// Simple SVG Icon untuk Reports
-const ReportsIcon = () => (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="16" y1="13" x2="8" y2="13" />
-        <line x1="16" y1="17" x2="8" y2="17" />
-        <polyline points="10 9 9 9 8 9" />
-    </svg>
-);
+export default function ReportContent() {
+    const [reportType, setReportType] = useState("sales");
+    const [dateFrom, setDateFrom] = useState("");
+    const [dateUntil, setDateUntil] = useState("");
 
-const ReportsContent = () => {
+    const reportOptions = [
+        { label: "Sales report", value: "sales" },
+        { label: "MRN report", value: "mrn" },
+        { label: "Service report", value: "service" }
+    ];
+
+    const data = [
+        { date: "05-11-2025", type: "Sales", branch: "Bandung", total: "Rp 123", status: "Completed" },
+        { date: "05-11-2025", type: "MRN", branch: "Bandung", total: "Rp 123", status: "Pending" },
+        { date: "05-11-2025", type: "Service", branch: "Bandung", total: "Rp 123", status: "Completed" }
+    ];
+
     return (
-        <div className="p-6">
-            {/* Header Section */}
-            <div className="mb-6">
-                <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-bold text-white">Reports</h2>
-                    <ReportsIcon />
+        <div className="p-6 text-white" style={{ backgroundColor: "#262421" }}>
+            
+            {/* ====== TOP FILTER BAR ====== */}
+            <div className="flex items-center gap-6 mb-8">
+
+                {/* Report type dropdown */}
+                <div className="w-60">
+                    <Filter
+                        value={reportType}
+                        onChange={setReportType}
+                        options={reportOptions}
+                        placeholder="Sales report"
+                        className="text-black"
+                    />
                 </div>
-                <p className="text-gray-400">View and generate system reports</p>
+
+                {/* From date */}
+                <div className="flex items-center gap-3">
+                    <span className="text-white text-sm">From:</span>
+                    <div className="w-40">
+                        <Input
+                            variant="date"
+                            value={dateFrom}
+                            onChange={(e) => setDateFrom(e.target.value)}
+                            className="cursor-pointer"
+                            icon={null}  // icon tidak diperlukan karena date picker punya icon sendiri
+                        />
+                    </div>
+                </div>
+
+                {/* Until date */}
+                <div className="flex items-center gap-3">
+                    <span className="text-white text-sm">Until:</span>
+                    <div className="w-40">
+                        <Input
+                            variant="date"
+                            value={dateFrom}
+                            onChange={(e) => setDateFrom(e.target.value)}
+                            className="cursor-pointer"
+                            icon={null}  // icon tidak diperlukan karena date picker punya icon sendiri
+                        />
+                    </div>
+                </div>
+
             </div>
 
-            {/* Empty State */}
-            <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-12 shadow-xl border border-gray-600 text-center">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="bg-orange-500 bg-opacity-20 rounded-full p-6 mb-4">
-                        <ReportsIcon />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">Coming Soon</h3>
-                    <p className="text-gray-400 mb-6">Reporting features will be available here</p>
+            {/* ====== SUMMARY CARDS ====== */}
+            <div className="flex gap-6 mb-8">
+                <SummaryCard label="Total transaction" value={100} />
+                <SummaryCard label="Total Customer" value={100} />
+                <SummaryCard label="Pending MRN" value={100} />
+            </div>
 
-                    {/* Placeholder Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl mt-8">
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Total Reports</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Generated Today</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Scheduled</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                    </div>
-                </div>
+            {/* ====== REPORT TABLE ====== */}
+            <div className="overflow-x-auto rounded-lg mb-10">
+                <table className="w-full border border-gray-700 text-black bg-white">
+
+                    <thead>
+                        <tr className="bg-red-300">
+                            <th className="px-4 py-3 border border-gray-700 font-semibold">Date</th>
+                            <th className="px-4 py-3 border border-gray-700 font-semibold">Report Type</th>
+                            <th className="px-4 py-3 border border-gray-700 font-semibold">Dealer Branch</th>
+                            <th className="px-4 py-3 border border-gray-700 font-semibold">Total Value</th>
+                            <th className="px-4 py-3 border border-gray-700 font-semibold">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {data.map((row, index) => (
+                            <tr key={index} className="bg-red-100">
+                                <td className="border px-4 py-3">{row.date}</td>
+                                <td className="border px-4 py-3">{row.type}</td>
+                                <td className="border px-4 py-3">{row.branch}</td>
+                                <td className="border px-4 py-3">{row.total}</td>
+                                <td className="border px-4 py-3">{row.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+
+                </table>
+            </div>
+
+            {/* ====== BUTTONS ====== */}
+            <div className="flex gap-6 mb-10">
+                <Button
+                    variant="danger"
+                    className="rounded-full px-8 py-3 text-lg bg-red-600 hover:bg-red-700"
+                >
+                    Download PDF
+                </Button>
+
+                <Button
+                    variant="danger"
+                    className="rounded-full px-8 py-3 text-lg bg-red-600 hover:bg-red-700"
+                >
+                    Download Excel
+                </Button>
             </div>
         </div>
     );
-};
+}
 
-export default ReportsContent;
+
+/* ====== SUMMARY CARD COMPONENT ====== */
+function SummaryCard({ label, value }: { label: string; value: number }) {
+    return (
+        <div className="px-6 py-4 rounded-2xl text-white font-semibold text-lg"
+            style={{ backgroundColor: "#7B7B7B" }}>
+            {label}: {value}
+        </div>
+    );
+}
