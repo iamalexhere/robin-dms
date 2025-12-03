@@ -1,0 +1,82 @@
+[
+    {
+        "id": "m1",
+        "name": "Toyota Motor Corporation",
+        "type": "manufacturer",
+        "code": "TMC",
+        "description": "Toyota Motor Corporation Global",
+        "isActive": true,
+        "hierarchyAttribute": "Manufacturer",
+        "effectiveDate": "2023-01-01",
+        "children": [
+            {
+                "id": "b1",
+                "name": "Toyota",
+                "type": "brand",
+                "code": "TOY",
+                "description": "Toyota Brand",
+                "isActive": true,
+                "hierarchyAttribute": "Brand",
+                "effectiveDate": "2023-01-01",
+                "children": [
+                    {
+                        "id": "md1",
+                        "name": "Camry",
+                        "type": "model",
+                        "code": "CAM",
+                        "description": "Toyota Camry Sedan",
+                        "isActive": true,
+                        "hierarchyAttribute": "Model",
+                        "effectiveDate": "2023-01-01",
+                        "children": []
+                    },
+                    {
+                        "id": "md2",
+                        "name": "Corolla",
+                        "type": "model",
+                        "code": "COR",
+                        "description": "Toyota Corolla",
+                        "isActive": true,
+                        "hierarchyAttribute": "Model",
+                        "effectiveDate": "2023-01-01",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": "b2",
+                "name": "Lexus",
+                "type": "brand",
+                "code": "LEX",
+                "description": "Lexus Luxury Brand",
+                "isActive": true,
+                "hierarchyAttribute": "Brand",
+                "effectiveDate": "2023-01-01",
+                "children": []
+            }
+        ]
+    },
+    {
+        "id": "m2",
+        "name": "Honda Motor Co., Ltd.",
+        "type": "manufacturer",
+        "code": "HMC",
+        "description": "Honda Motor Company",
+        "isActive": true,
+        "hierarchyAttribute": "Manufacturer",
+        "effectiveDate": "2023-01-01",
+        "children": [
+            {
+                "id": "b3",
+                "name": "Honda",
+                "type": "brand",
+                "code": "HON",
+                "description": "Honda Brand",
+                "isActive": true,
+                "hierarchyAttribute": "Brand",
+                "effectiveDate": "2023-01-01",
+                "children": []
+            }
+        ]
+    }
+]
