@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ManufacturerTree from '../ManufacturerTree';
+import HierarchyDetails, { type HierarchyNode } from '../HierarchyDetails';
+import OrgChart from '../OrgChart';
+import { Button } from '../Button';
+import hierarchyData from '../../../data/manufacturer-hierarchy.json';
 
-// Simple SVG Icon untuk Hierarchy
+// Simple SVG Icon for Hierarchy
 const HierarchyIcon = () => (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500">
         <rect x="3" y="3" width="7" height="7" />
@@ -11,43 +16,169 @@ const HierarchyIcon = () => (
 );
 
 const ManufacturerHierarchyContent = () => {
-    return (
-        <div className="p-6">
-            {/* Header Section */}
-            <div className="mb-6">
-                <div className="flex items-center gap-2 mb-4">
-                    <h2 className="text-2xl font-bold text-white">Manufacturer Hierarchy</h2>
-                    <HierarchyIcon />
-                </div>
-                <p className="text-gray-400">Manage manufacturer structure and relationships</p>
-            </div>
+    // State for data (simulating DB)
+    const [data, setData] = useState<HierarchyNode[]>(hierarchyData as HierarchyNode[]);
+    const [selectedNode, setSelectedNode] = useState<HierarchyNode | null>(null);
+    const [mode, setMode] = useState<'view' | 'edit' | 'add'>('view');
+    const [viewType, setViewType] = useState<'tree' | 'chart'>('tree');
 
-            {/* Empty State */}
-            <div className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-12 shadow-xl border border-gray-600 text-center">
-                <div className="flex flex-col items-center justify-center">
-                    <div className="bg-orange-500 bg-opacity-20 rounded-full p-6 mb-4">
+    // Helper to find and update node in tree
+    const updateNodeInTree = (nodes: HierarchyNode[], updatedNode: HierarchyNode): HierarchyNode[] => {
+        return nodes.map(node => {
+            if (node.id === updatedNode.id) {
+                return { ...node, ...updatedNode };
+            }
+            if (node.children) {
+                return { ...node, children: updateNodeInTree(node.children, updatedNode) };
+            }
+            return node;
+        });
+    };
+
+    // Helper to add child node
+    const addChildToNode = (nodes: HierarchyNode[], parentId: string, newNode: HierarchyNode): HierarchyNode[] => {
+        return nodes.map(node => {
+            if (node.id === parentId) {
+                return { ...node, children: [...(node.children || []), newNode] };
+            }
+            if (node.children) {
+                return { ...node, children: addChildToNode(node.children, parentId, newNode) };
+            }
+            return node;
+        });
+    };
+
+    // Helper to delete node
+    const deleteNodeFromTree = (nodes: HierarchyNode[], nodeId: string): HierarchyNode[] => {
+        return nodes.filter(node => node.id !== nodeId).map(node => {
+            if (node.children) {
+                return { ...node, children: deleteNodeFromTree(node.children, nodeId) };
+            }
+            return node;
+        });
+    };
+
+    const handleSelect = (node: HierarchyNode) => {
+        if (mode === 'view') {
+            setSelectedNode(node);
+        }
+    };
+
+    const handleSave = (updatedNode: HierarchyNode) => {
+        if (mode === 'edit') {
+            setData(prev => updateNodeInTree(prev, updatedNode));
+            setSelectedNode(updatedNode);
+        } else if (mode === 'add' && selectedNode) {
+            const newNode = { ...updatedNode, id: `new-${Date.now()}`, children: [] };
+            setData(prev => addChildToNode(prev, selectedNode.id, newNode));
+        }
+        setMode('view');
+    };
+
+    const handleDelete = () => {
+        if (selectedNode && window.confirm(`Are you sure you want to delete ${selectedNode.name}?`)) {
+            setData(prev => deleteNodeFromTree(prev, selectedNode.id));
+            setSelectedNode(null);
+            setMode('view');
+        }
+    };
+
+    return (
+        <div className="p-6 h-full flex flex-col">
+            {/* Header Section */}
+            <div className="mb-6 flex justify-between items-end">
+                <div>
+                    <div className="flex items-center gap-2 mb-2">
+                        <h2 className="text-2xl font-bold text-white">Manufacturer Hierarchy</h2>
                         <HierarchyIcon />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">Coming Soon</h3>
-                    <p className="text-gray-400 mb-6">Manufacturer hierarchy features will be available here</p>
+                    <p className="text-gray-400">Manage manufacturer structure and relationships</p>
+                </div>
 
-                    {/* Placeholder Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl mt-8">
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Manufacturers</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Categories</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                        <div className="bg-black bg-opacity-30 rounded-xl p-4 border border-gray-600">
-                            <p className="text-amber-300 text-sm font-medium mb-2">Products</p>
-                            <p className="text-3xl font-bold text-white">--</p>
-                        </div>
-                    </div>
+                {/* View Switcher */}
+                <div className="bg-[#2a2a2a] p-1 rounded-lg border border-gray-700 flex gap-1">
+                    <button
+                        onClick={() => setViewType('tree')}
+                        className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'tree'
+                                ? 'bg-blue-600 text-white'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            }`}
+                    >
+                        Tree View
+                    </button>
+                    <button
+                        onClick={() => setViewType('chart')}
+                        className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'chart'
+                                ? 'bg-blue-600 text-white'
+                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            }`}
+                    >
+                        Org Chart
+                    </button>
                 </div>
             </div>
+
+            {/* Main Content */}
+            {viewType === 'tree' ? (
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1 min-h-0">
+                    {/* Left Column: Tree View & Actions */}
+                    <div className="lg:col-span-1 flex flex-col gap-4">
+                        {/* Action Bar */}
+                        <div className="bg-[#2a2a2a] rounded-lg border border-gray-700 p-3 flex gap-2">
+                            <Button
+                                variant="secondary"
+                                size="sm"
+                                disabled={!selectedNode || mode !== 'view'}
+                                onClick={() => setMode('add')}
+                                className="flex-1"
+                            >
+                                + Add Child
+                            </Button>
+                            <Button
+                                variant="primary"
+                                size="sm"
+                                disabled={!selectedNode || mode !== 'view'}
+                                onClick={() => setMode('edit')}
+                                className="flex-1"
+                            >
+                                Update
+                            </Button>
+                            <Button
+                                variant="danger"
+                                size="sm"
+                                disabled={!selectedNode || mode !== 'view'}
+                                onClick={handleDelete}
+                                className="flex-1"
+                            >
+                                Delete
+                            </Button>
+                        </div>
+
+                        {/* Tree Component */}
+                        <div className="flex-1 min-h-0">
+                            <ManufacturerTree
+                                data={data}
+                                onSelect={handleSelect}
+                                selectedNodeId={selectedNode?.id}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Right Column: Details Form */}
+                    <div className="lg:col-span-2">
+                        <HierarchyDetails
+                            node={selectedNode}
+                            mode={mode}
+                            onSave={handleSave}
+                            onCancel={() => setMode('view')}
+                        />
+                    </div>
+                </div>
+            ) : (
+                <div className="flex-1 min-h-0">
+                    <OrgChart data={data} />
+                </div>
+            )}
         </div>
     );
 };
