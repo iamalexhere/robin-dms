@@ -137,7 +137,7 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                             name="id"
                             value={formData.id}
                             disabled
-                            className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-500 cursor-not-allowed"
+                            className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-500! cursor-not-allowed"
                         />
                     </div>
                     <div>
@@ -148,7 +148,7 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                             value={formData.name}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
                         />
                     </div>
                     <div>
@@ -159,18 +159,18 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                             value={formData.phone}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">Email Address</label>
+                        <label className="block text-gray-400! text-sm mb-2">Email Address</label>
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
                         />
                     </div>
                     <div>
@@ -262,7 +262,7 @@ const CustomerMaster = () => {
                 <input
                     type="text"
                     placeholder="Search by Customer ID, Name, Phone or Email..."
-                    className="flex-1 bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
+                    className="flex-1 bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white! focus:outline-none focus:border-orange-500"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />

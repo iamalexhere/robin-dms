@@ -110,7 +110,7 @@ const RepairOrderSearch = () => {
                             placeholder="Reg No, Chassis No, or Customer Name..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
+                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white! focus:outline-none focus:border-orange-500"
                         />
                     </div>
                     <div>
@@ -119,7 +119,7 @@ const RepairOrderSearch = () => {
                             type="date"
                             value={dateFrom}
                             onChange={(e) => setDateFrom(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
+                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white! focus:outline-none focus:border-orange-500"
                         />
                     </div>
                     <div>
@@ -128,7 +128,7 @@ const RepairOrderSearch = () => {
                             type="date"
                             value={dateTo}
                             onChange={(e) => setDateTo(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
+                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white! focus:outline-none focus:border-orange-500"
                         />
                     </div>
                 </div>
