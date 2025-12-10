@@ -51,11 +51,11 @@ Pastikan Anda telah menginstal Node.js (disarankan versi LTS) dan npm (atau yarn
 Kloning repositori proyek dan instal semua dependensi yang diperlukan:
 
 ```bash
-# Kloning repositori (ganti dengan link repositori Anda)
+# Kloning repositori
 git clone https://github.com/iamalexhere/robin-dms.git
 cd project-robin-dms
 
-# Instal dependensi menggunakan npm
+# Instal dependensi menggunakan pnpm
 npm install -g pnpm@latest-10
 ```
 
