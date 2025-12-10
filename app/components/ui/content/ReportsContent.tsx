@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { type Report, type ReportCategory, type GeneratedReport, REPORT_CATEGORIES, REPORTS_DATA } from './type-and-data';
+import { type Report, type ReportCategory, type GeneratedReport } from './type-and-data';
+import reportsData from '~/data/reports.json';
+const { categories: REPORT_CATEGORIES, reports: REPORTS_DATA } = reportsData;
+
 import { downloadPDF, downloadExcel, downloadCSV } from './donwload-utils';
 import Search from '~/components/ui/Search';
 

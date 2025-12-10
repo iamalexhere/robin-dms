@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '~/components/ui/Button';
 import initialInventory from '../../../data/parts-inventory.json';
+import mrnData from '~/data/mrn-data.json';
+
 
 // Types
 interface Part {
@@ -33,17 +35,7 @@ interface MRNHistoryItem {
     itemCount: number;
 }
 
-// Mock Data for Search
-const MOCK_PARTS_DATA: Record<string, Part[]> = {
-    'INV-2025-001': [
-        { id: '1', partNumber: 'P-001', description: 'Oil Filter', uom: 'PCS', qty: 10, rate: 50000, amount: 500000, status: 'Pending' },
-        { id: '2', partNumber: 'P-002', description: 'Air Filter', uom: 'PCS', qty: 5, rate: 75000, amount: 375000, status: 'Pending' },
-        { id: '3', partNumber: 'P-003', description: 'Brake Pad', uom: 'SET', qty: 2, rate: 250000, amount: 500000, status: 'Pending' },
-    ],
-    'INV-2025-002': [
-        { id: '4', partNumber: 'P-004', description: 'Spark Plug', uom: 'PCS', qty: 20, rate: 25000, amount: 500000, status: 'Pending' },
-    ]
-};
+const MOCK_PARTS_DATA: Record<string, Part[]> = mrnData.mockPartsData as unknown as Record<string, Part[]>;
 
 // Icons
 const MRNIcon = () => (
@@ -59,9 +51,7 @@ const MRNComponent = () => {
     const [activeTab, setActiveTab] = useState<'create' | 'history' | 'inventory'>('create');
 
     // Feature State
-    const [history, setHistory] = useState<MRNHistoryItem[]>([
-        { id: 'h1', mrnNo: 'MRN-2025-001', mrnDate: '2025-01-10', invoiceNo: 'INV-OLD-001', status: 'Completed', totalAmount: 1500000, itemCount: 5 }
-    ]);
+    const [history, setHistory] = useState<MRNHistoryItem[]>(mrnData.initialHistory as MRNHistoryItem[]);
     const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
 
     // Form State

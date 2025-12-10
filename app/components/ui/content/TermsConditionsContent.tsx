@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { type TermsCondition, type ModalMode, TERMS_DATA, HISTORY_DATA } from './type';
+import { type TermsCondition, type ModalMode } from './type';
+import termsData from '~/data/terms-data.json';
 import { TermsIcon, FilterTabs, TermsCard, TermsModal, HistoryModal } from './componentsTC';
+
+const { termsData: TERMS_DATA, historyData: HISTORY_DATA } = termsData as unknown as { termsData: TermsCondition[], historyData: any[] };
+
 import Search from '~/components/ui/Search';
 
 const TermsConditionsContent = () => {
