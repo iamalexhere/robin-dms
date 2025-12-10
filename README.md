@@ -1,18 +1,44 @@
-# Welcome to React Router!
+# ROBIN - Dealer Management System (DMS) App Design
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## Latar Belakang
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Proyek ini merupakan bagian dari "Project ROBIN - Dealer Management System App Design Challenge" dengan tujuan untuk merancang serangkaian antarmuka pengguna (User Interface) baru untuk aplikasi Dealer Management System (DMS) yang diberi nama ROBIN.
 
-## Features
+Aplikasi ROBIN DMS dirancang untuk menggantikan sistem DMS yang sudah ada/lama pada salah satu bisnis di industri Otomotif yang berfokus pada aktivitas Dealer. Sistem ini akan mendukung proses inti seperti penjualan (sales), layanan (service), suku cadang (spare parts), dan CRM (Customer Relationship Management).
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Tujuan Desain Utama:
+
+- Menciptakan desain UI untuk aplikasi web responsif (fokus pada Desktop/Web).
+
+- Menghasilkan 7 layar Desktop/Web yang unik, intuitif, mudah digunakan, dan memiliki hierarki visual yang baik.
+
+- Menetapkan base design template untuk aplikasi ROBIN DMS baru yang akan digunakan sebagai panduan desain untuk layar-layar selanjutnya di masa mendatang.
+
+## Target Pengguna
+
+Aplikasi ROBIN DMS dirancang untuk digunakan oleh berbagai peran di dalam operasional dealer, antara lain:
+
+- DMS Admin
+
+- DMS Business User
+
+- Dealer Normal User
+
+- Dealer Admin User
+
+## Daftar Halaman
+
+Total terdapat 7 layar unik yang perlu dirancang dalam proyek ini, mencakup fitur-fitur penting dari aplikasi DMS baru:
+
+| No.    | Nama Halaman / Fitur                            | Deskripsi Singkat                                                                                                                                               |
+| :----- | :---------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **01** | **Login Screen**                                | Layar untuk login dengan validasi username dan password, serta fitur Forgot Password dan penanganan locked account.                                             |
+| **02** | **DMS Home Screen**                             | Halaman utama yang menampilkan dashboard kaya fitur, widget, menu navigasi berdasarkan modul, action item, informasi, dan fasilitas pencarian/favorit menu.     |
+| **03** | **Terms and Conditions - Dealer Branch Screen** | Layar untuk Dealer mendefinisikan Terms & Conditions spesifik cabang yang akan dicetak pada dokumen yang menghadap pelanggan, selain T&C dari Manufaktur.       |
+| **04** | **Manufacturer Hierarchy Screen**               | Layar yang memungkinkan Application Administrator untuk membangun dan melihat hierarki Manufaktur dalam tampilan tree yang terstruktur.                         |
+| **05** | **Customer Master Screen**                      | Layar untuk membuat, memelihara, dan melihat detail pelanggan (360 degree view) yang memiliki ID unik di seluruh jaringan DMS.                                  |
+| **06** | **Material Receipt Note (MRN) Screen**          | Layar untuk mencatat penerimaan material/suku cadang yang dikirim ke dealer (terhadap Purchase Invoice No. atau Local PO), serta menambah stok ke Dealer Stock. |
+| **07** | **Repair Order Search Screen**                  | Layar untuk mencari dan melihat detail Repair Order berdasarkan rentang tanggal atau spesifik kendaraan (Registration Number/Chassis Number/Customer ID).       |
 
 ## Getting Started
 
