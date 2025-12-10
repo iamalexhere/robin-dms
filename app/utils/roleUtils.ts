@@ -73,3 +73,21 @@ export function checkRoleAccess(
 ): boolean {
     return hasAccessObj[userRole] === true;
 }
+
+export const PAGE_ACCESS_CONFIG: Record<string, UserRole[]> = {
+    'dashboard': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user'],
+    'user-management': ['dms_admin', 'dealer_admin'],
+    'manufacturer': ['dms_admin', 'dms_business_user', 'dealer_admin'], // Dealer Admin has View Only access
+    'reports': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user'],
+    'mrn': ['dms_admin', 'dealer_admin', 'dealer_normal_user'],
+    'masters': ['dms_admin', 'dealer_admin', 'dealer_normal_user'],
+    'system-settings': ['dms_admin'],
+    'terms': ['dms_admin', 'dms_business_user', 'dealer_admin'], // Manufacturer Admin can create Mfg T&C
+    'favorite': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user']
+};
+
+export function checkPageAccess(pageId: string, userRole: UserRole): boolean {
+    const allowedRoles = PAGE_ACCESS_CONFIG[pageId];
+    if (!allowedRoles) return false;
+    return allowedRoles.includes(userRole);
+}

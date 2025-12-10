@@ -62,6 +62,13 @@ export default function Login() {
           setPasswordError('Invalid password');
         }
 
+        // Check for specific locked account simulation
+        if (username === 'locked_user') {
+          setUsernameError('Account Locked');
+          setPasswordError('Contact dealer admin to reactivate.');
+        }
+
+
         setIsLoading(false);
         return;
       }

@@ -1,0 +1,203 @@
+{
+    "termsData": [
+        {
+            "id": "1",
+            "type": "manufacturer",
+            "documentType": "Sales Invoice",
+            "version": "v1.2",
+            "content": "MANUFACTURER TERMS AND CONDITIONS - SALES INVOICE\n\n1. PAYMENT TERMS\n   1.1 Payment must be made within 30 days from the date of invoice.\n   1.2 All payments shall be made in the currency specified on the invoice.\n   1.3 Late payment will attract interest at the rate of 2% per month or part thereof.\n   1.4 Payment shall be made by bank transfer, cheque, or other approved methods.\n\n2. WARRANTY\n   2.1 All products are covered by manufacturer warranty as specified in the warranty card.\n   2.2 Warranty period commences from the date of delivery.\n   2.3 Warranty covers manufacturing defects only and does not cover normal wear and tear.\n   2.4 Warranty is void if the product is tampered with or repaired by unauthorized personnel.\n\n3. DELIVERY\n   3.1 Delivery timelines are estimates and not guaranteed unless specifically agreed in writing.\n   3.2 Risk of loss passes to the buyer upon delivery.\n   3.3 The manufacturer is not liable for delays caused by force majeure events.\n\n4. RETURNS AND CANCELLATIONS\n   4.1 Returns are accepted within 7 days of delivery for defective products only.\n   4.2 Cancellations after order confirmation may attract a cancellation fee of 10%.\n   4.3 Custom orders are non-returnable and non-cancellable.\n\n5. LIABILITY\n   5.1 The manufacturer's liability is limited to the invoice value of the products.\n   5.2 The manufacturer is not liable for indirect or consequential damages.\n\n6. GOVERNING LAW\n   6.1 This agreement shall be governed by the laws of the jurisdiction where the manufacturer is registered.\n   6.2 Any disputes shall be subject to the exclusive jurisdiction of courts in the manufacturer's location.",
+            "isActive": true,
+            "createdBy": "Manufacturer Admin",
+            "createdDate": "2025-01-15",
+            "lastModified": "2025-11-20",
+            "applicableFor": [
+                "Sales Invoice",
+                "Proforma Invoice"
+            ]
+        },
+        {
+            "id": "2",
+            "type": "dealer",
+            "documentType": "Service Invoice",
+            "version": "v2.0",
+            "content": "DEALER BRANCH TERMS AND CONDITIONS - SERVICE INVOICE\n\n1. SERVICE CHARGES\n   1.1 All service charges are exclusive of applicable taxes unless stated otherwise.\n   1.2 Service charges are subject to change based on the complexity of work required.\n   1.3 Diagnostic charges are non-refundable even if service is not performed.\n   1.4 Emergency service calls will attract additional charges as per our rate card.\n\n2. PARTS AND MATERIALS\n   2.1 All replacement parts are genuine OEM parts unless customer specifically requests alternatives.\n   2.2 Parts replacement is subject to availability and may require advance ordering.\n   2.3 Customer-supplied parts are not covered under our service warranty.\n   2.4 Old replaced parts remain property of the dealer unless customer requests return.\n\n3. SERVICE WARRANTY\n   3.1 Service work is warranted for 90 days from the date of service completion.\n   3.2 Warranty covers workmanship only and does not extend to parts already under manufacturer warranty.\n   3.3 Warranty is void if the vehicle is serviced elsewhere during the warranty period.\n   3.4 Service warranty does not cover consequential damages or failures.\n\n4. VEHICLE CUSTODY\n   4.1 The dealer will exercise reasonable care while vehicle is in our custody.\n   4.2 The dealer is not responsible for personal items left in the vehicle.\n   4.3 Maximum liability for vehicle damage while in custody is limited to INR 50,000.\n   4.4 Vehicles left beyond 15 days after service completion will attract storage charges.\n\n5. PAYMENT AND COLLECTION\n   5.1 Full payment is required before vehicle delivery unless credit terms are pre-approved.\n   5.2 We accept cash, card, UPI, and bank transfer payments.\n   5.3 Vehicles will not be released until full payment is received.\n   5.4 For corporate accounts, payment is due within 15 days of invoice date.",
+            "isActive": true,
+            "createdBy": "Branch Manager",
+            "createdDate": "2025-02-10",
+            "lastModified": "2025-12-01",
+            "applicableFor": [
+                "Service Invoice",
+                "Job Card"
+            ]
+        },
+        {
+            "id": "3",
+            "type": "manufacturer",
+            "documentType": "Quotation",
+            "version": "v1.5",
+            "content": "MANUFACTURER TERMS AND CONDITIONS - QUOTATION\n\n1. QUOTATION VALIDITY\n   1.1 This quotation is valid for 30 days from the date of issue.\n   1.2 Prices are subject to change after the validity period.\n   1.3 Prices are based on current tax rates and may change if tax rates are revised.\n   1.4 This quotation is subject to product availability at the time of order confirmation.\n\n2. PRICING\n   2.1 All prices are in Indian Rupees (INR) unless otherwise specified.\n   2.2 Prices include applicable GST unless mentioned as \"exclusive of taxes\".\n   2.3 Additional charges may apply for customization, special colors, or accessories.\n   2.4 Insurance, registration, and handling charges are additional unless included in the quote.\n\n3. ORDER CONFIRMATION\n   3.1 This quotation does not constitute a binding agreement until confirmed by a purchase order.\n   3.2 Advance payment may be required to confirm the order as per company policy.\n   3.3 Order confirmation is subject to credit approval for corporate customers.",
+            "isActive": true,
+            "createdBy": "Manufacturer Admin",
+            "createdDate": "2025-03-05",
+            "lastModified": "2025-11-15",
+            "applicableFor": [
+                "Quotation"
+            ]
+        },
+        {
+            "id": "4",
+            "type": "dealer",
+            "documentType": "Purchase Order",
+            "version": "v1.8",
+            "content": "DEALER BRANCH TERMS AND CONDITIONS - PURCHASE ORDER\n\n1. ORDER ACCEPTANCE\n   1.1 This purchase order is subject to acceptance by the supplier within 48 hours.\n   1.2 Acceptance may be by written confirmation, commencement of work, or delivery of goods.\n   1.3 Any modifications to this PO must be mutually agreed in writing.\n\n2. DELIVERY TERMS\n   2.1 Delivery must be made to the address specified on this purchase order.\n   2.2 Delivery must be made during business hours (9 AM to 6 PM, Monday to Saturday).\n   2.3 Supplier must notify us at least 24 hours before delivery.\n   2.4 Partial deliveries are not accepted unless pre-approved in writing.\n\n3. QUALITY AND INSPECTION\n   3.1 All goods must meet the specifications mentioned in this purchase order.\n   3.2 We reserve the right to inspect goods upon delivery.\n   3.3 Defective or non-conforming goods will be rejected and returned at supplier's cost.\n\n4. PAYMENT TERMS\n   4.1 Payment terms are as specified on this purchase order (typically 30/45/60 days).\n   4.2 Payment will be processed only after successful delivery and quality inspection.\n   4.3 Payment will be made by RTGS/NEFT to the supplier's registered bank account.",
+            "isActive": true,
+            "createdBy": "Purchase Manager",
+            "createdDate": "2025-01-20",
+            "lastModified": "2025-12-05",
+            "applicableFor": [
+                "Purchase Order"
+            ]
+        },
+        {
+            "id": "5",
+            "type": "manufacturer",
+            "documentType": "Proforma Invoice",
+            "version": "v1.0",
+            "content": "MANUFACTURER TERMS AND CONDITIONS - PROFORMA INVOICE\n\n1. PROFORMA INVOICE VALIDITY\n   1.1 This proforma invoice is valid for 15 days from the date of issue.\n   1.2 This is not a tax invoice and cannot be used for accounting purposes.\n   1.3 Final invoice will be issued upon payment confirmation and dispatch.\n\n2. ORDER CONFIRMATION\n   2.1 Order will be confirmed only upon receipt of advance payment as specified.\n   2.2 Advance payment is typically 100% for retail customers and 50% for corporate accounts.\n   2.3 Balance payment (if applicable) must be made before dispatch.\n\n3. PRODUCT AVAILABILITY\n   3.1 Products are subject to availability at the time of order confirmation.\n   3.2 Lead time mentioned is approximate and may vary based on current stock levels.\n   3.3 In case of non-availability, full refund will be processed or alternative suggested.",
+            "isActive": true,
+            "createdBy": "Sales Manager",
+            "createdDate": "2025-04-20",
+            "lastModified": "2025-11-25",
+            "applicableFor": [
+                "Proforma Invoice",
+                "Sales Invoice"
+            ]
+        },
+        {
+            "id": "6",
+            "type": "dealer",
+            "documentType": "Gate Pass",
+            "version": "v2.2",
+            "content": "DEALER BRANCH TERMS AND CONDITIONS - GATE PASS\n\n1. AUTHORIZATION\n   1.1 This gate pass authorizes the movement of goods/vehicle as specified herein.\n   1.2 This gate pass must be produced at the exit gate for verification.\n   1.3 Goods/vehicle cannot be removed without proper authorization and signed gate pass.\n\n2. VEHICLE/GOODS DETAILS\n   2.1 All details mentioned on this gate pass must match with actual vehicle/goods being moved.\n   2.2 Any discrepancy must be reported immediately to the issuing authority.\n   2.3 Unauthorized items found during exit check will be confiscated.\n\n3. VALIDITY\n   3.1 This gate pass is valid only for the date and time mentioned.\n   3.2 Expired gate passes will not be honored and fresh pass must be obtained.\n   3.3 Single use only - pass becomes invalid after one-time exit.",
+            "isActive": true,
+            "createdBy": "Security Manager",
+            "createdDate": "2025-05-10",
+            "lastModified": "2025-12-02",
+            "applicableFor": [
+                "Gate Pass",
+                "Delivery Challan"
+            ]
+        },
+        {
+            "id": "7",
+            "type": "dealer",
+            "documentType": "Job Card",
+            "version": "v2.1",
+            "content": "DEALER BRANCH TERMS AND CONDITIONS - JOB CARD\n\n1. SERVICE AUTHORIZATION\n   1.1 This job card authorizes the service work as described and approved by the customer.\n   1.2 Additional work required will not be performed without customer approval.\n   1.3 Customer signature on this job card confirms authorization for described work.\n\n2. VEHICLE ACCEPTANCE\n   2.1 Customer confirms that vehicle condition is as noted on this job card.\n   2.2 Any pre-existing damage must be noted before service commencement.\n   2.3 Customer must remove all valuables from the vehicle before handing over.\n   2.4 Dealer is not responsible for items left in the vehicle.\n\n3. SERVICE TIMELINE\n   3.1 Estimated completion time is approximate and not guaranteed.\n   3.2 Delays due to parts unavailability or unforeseen issues will be communicated promptly.\n   3.3 Customer will be notified via phone/SMS when vehicle is ready for collection.\n\n4. WARRANTY ON SERVICE\n   4.1 Service work is warranted for 90 days or 2,000 km, whichever comes first.\n   4.2 Warranty covers workmanship defects only.\n   4.3 Warranty void if vehicle is serviced elsewhere during warranty period.",
+            "isActive": true,
+            "createdBy": "Service Manager",
+            "createdDate": "2025-06-01",
+            "lastModified": "2025-12-05",
+            "applicableFor": [
+                "Job Card",
+                "Service Invoice"
+            ]
+        },
+        {
+            "id": "8",
+            "type": "manufacturer",
+            "documentType": "Delivery Challan",
+            "version": "v1.3",
+            "content": "MANUFACTURER TERMS AND CONDITIONS - DELIVERY CHALLAN\n\n1. DELIVERY CONFIRMATION\n   1.1 This delivery challan confirms dispatch of goods as per sales order/invoice.\n   1.2 Delivery challan number must be referenced in all correspondence.\n   1.3 This is not a tax invoice - final invoice will be issued separately.\n\n2. RECEIPT AND INSPECTION\n   2.1 Customer must inspect goods immediately upon delivery.\n   2.2 Any shortage or damage must be noted on the delivery challan before driver leaves.\n   2.3 Claims for shortage or damage not noted on challan will not be entertained.\n   2.4 Customer signature confirms receipt of goods in good condition as per challan.\n\n3. DELIVERY RESPONSIBILITIES\n   3.1 Goods are delivered at customer's risk after handover.\n   3.2 Customer must provide adequate manpower for unloading at delivery location.\n   3.3 Driver is not responsible for unloading unless specifically agreed.\n\n4. TRANSPORTATION\n   4.1 Transportation charges are as per sales agreement.\n   4.2 Insurance coverage (if any) is as mentioned in the sales order.\n   4.3 Transit damage must be reported within 24 hours with photographic evidence.",
+            "isActive": true,
+            "createdBy": "Logistics Manager",
+            "createdDate": "2025-07-15",
+            "lastModified": "2025-12-03",
+            "applicableFor": [
+                "Delivery Challan",
+                "Gate Pass"
+            ]
+        }
+    ],
+    "historyData": [
+        {
+            "id": "h1",
+            "termsId": "2",
+            "version": "v2.0",
+            "date": "2025-12-01",
+            "user": "Branch Manager",
+            "changes": "Updated payment terms section and added UPI payment method",
+            "action": "updated",
+            "previousVersion": "v1.5"
+        },
+        {
+            "id": "h2",
+            "termsId": "2",
+            "version": "v1.5",
+            "date": "2025-10-15",
+            "user": "Branch Admin",
+            "changes": "Added warranty clause for service work and extended warranty period to 90 days",
+            "action": "updated",
+            "previousVersion": "v1.0"
+        },
+        {
+            "id": "h3",
+            "termsId": "2",
+            "version": "v1.0",
+            "date": "2025-02-10",
+            "user": "Branch Manager",
+            "changes": "Initial version created",
+            "action": "created"
+        },
+        {
+            "id": "h4",
+            "termsId": "1",
+            "version": "v1.2",
+            "date": "2025-11-20",
+            "user": "Manufacturer Admin",
+            "changes": "Updated return policy and added force majeure clause",
+            "action": "updated",
+            "previousVersion": "v1.1"
+        },
+        {
+            "id": "h5",
+            "termsId": "1",
+            "version": "v1.1",
+            "date": "2025-08-10",
+            "user": "Manufacturer Admin",
+            "changes": "Modified payment terms from 45 days to 30 days",
+            "action": "updated",
+            "previousVersion": "v1.0"
+        },
+        {
+            "id": "h6",
+            "termsId": "7",
+            "version": "v2.1",
+            "date": "2025-12-05",
+            "user": "Service Manager",
+            "changes": "Added vehicle custody clause and storage charges policy",
+            "action": "updated",
+            "previousVersion": "v2.0"
+        },
+        {
+            "id": "h7",
+            "termsId": "4",
+            "version": "v1.8",
+            "date": "2025-12-05",
+            "user": "Purchase Manager",
+            "changes": "Updated delivery terms and added 48-hour notification requirement",
+            "action": "updated",
+            "previousVersion": "v1.7"
+        },
+        {
+            "id": "h8",
+            "termsId": "6",
+            "version": "v2.2",
+            "date": "2025-12-02",
+            "user": "Security Manager",
+            "changes": "Enhanced security verification process",
+            "action": "updated",
+            "previousVersion": "v2.1"
+        }
+    ]
+}

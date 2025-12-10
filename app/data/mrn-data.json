@@ -1,0 +1,59 @@
+{
+    "mockPartsData": {
+        "INV-2025-001": [
+            {
+                "id": "1",
+                "partNumber": "P-001",
+                "description": "Oil Filter",
+                "uom": "PCS",
+                "qty": 10,
+                "rate": 50000,
+                "amount": 500000,
+                "status": "Pending"
+            },
+            {
+                "id": "2",
+                "partNumber": "P-002",
+                "description": "Air Filter",
+                "uom": "PCS",
+                "qty": 5,
+                "rate": 75000,
+                "amount": 375000,
+                "status": "Pending"
+            },
+            {
+                "id": "3",
+                "partNumber": "P-003",
+                "description": "Brake Pad",
+                "uom": "SET",
+                "qty": 2,
+                "rate": 250000,
+                "amount": 500000,
+                "status": "Pending"
+            }
+        ],
+        "INV-2025-002": [
+            {
+                "id": "4",
+                "partNumber": "P-004",
+                "description": "Spark Plug",
+                "uom": "PCS",
+                "qty": 20,
+                "rate": 25000,
+                "amount": 500000,
+                "status": "Pending"
+            }
+        ]
+    },
+    "initialHistory": [
+        {
+            "id": "h1",
+            "mrnNo": "MRN-2025-001",
+            "mrnDate": "2025-01-10",
+            "invoiceNo": "INV-OLD-001",
+            "status": "Completed",
+            "totalAmount": 1500000,
+            "itemCount": 5
+        }
+    ]
+}
