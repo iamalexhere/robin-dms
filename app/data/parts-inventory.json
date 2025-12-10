@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "partNumber": "P-001",
+        "description": "Oil Filter",
+        "uom": "PCS",
+        "stock": 15,
+        "location": "A-01-01"
+    },
+    {
+        "id": "2",
+        "partNumber": "P-002",
+        "description": "Air Filter",
+        "uom": "PCS",
+        "stock": 8,
+        "location": "A-01-02"
+    },
+    {
+        "id": "3",
+        "partNumber": "P-003",
+        "description": "Brake Pad",
+        "uom": "SET",
+        "stock": 4,
+        "location": "B-02-01"
+    },
+    {
+        "id": "4",
+        "partNumber": "P-004",
+        "description": "Spark Plug",
+        "uom": "PCS",
+        "stock": 45,
+        "location": "B-02-02"
+    },
+    {
+        "id": "5",
+        "partNumber": "P-005",
+        "description": "Clutch Plate",
+        "uom": "PCS",
+        "stock": 2,
+        "location": "C-03-01"
+    }
+]
