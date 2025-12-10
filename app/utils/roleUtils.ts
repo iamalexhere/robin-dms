@@ -83,6 +83,8 @@ export const PAGE_ACCESS_CONFIG: Record<string, UserRole[]> = {
     'masters': ['dms_admin', 'dealer_admin', 'dealer_normal_user'],
     'system-settings': ['dms_admin'],
     'terms': ['dms_admin', 'dms_business_user', 'dealer_admin'], // Manufacturer Admin can create Mfg T&C
+    'repair-orders': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user'],
+    'customer': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user'],
     'favorite': ['dms_admin', 'dms_business_user', 'dealer_admin', 'dealer_normal_user']
 };
 

@@ -196,7 +196,7 @@ const MRNComponent = () => {
                                         value={invoiceNo}
                                         onChange={(e) => setInvoiceNo(e.target.value)}
                                         placeholder="Enter: INV-2025-001"
-                                        className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:border-orange-500"
+                                        className="w-full px-4 py-3 bg-gray-700 text-white! rounded-lg border border-gray-600 focus:outline-none focus:border-orange-500"
                                     />
                                     <button onClick={handleSearch} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg">Search</button>
                                 </div>
@@ -204,7 +204,7 @@ const MRNComponent = () => {
                             </div>
                             <div>
                                 <label className="block text-gray-300 mb-2 text-sm font-medium">MRN Date</label>
-                                <input type="date" value={mrnDate} readOnly className="w-full px-4 py-3 bg-gray-700/50 text-gray-400 rounded-lg border border-gray-600 cursor-not-allowed" />
+                                <input type="date" value={mrnDate} readOnly className="w-full px-4 py-3 bg-gray-700/50 text-gray-400! rounded-lg border border-gray-600 cursor-not-allowed" />
                             </div>
                         </div>
                     </div>
