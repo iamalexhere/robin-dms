@@ -38,76 +38,47 @@ Total terdapat 7 layar unik yang perlu dirancang dalam proyek ini, mencakup fitu
 | **04** | **Manufacturer Hierarchy Screen**               | Layar yang memungkinkan Application Administrator untuk membangun dan melihat hierarki Manufaktur dalam tampilan tree yang terstruktur.                         |
 | **05** | **Customer Master Screen**                      | Layar untuk membuat, memelihara, dan melihat detail pelanggan (360 degree view) yang memiliki ID unik di seluruh jaringan DMS.                                  |
 | **06** | **Material Receipt Note (MRN) Screen**          | Layar untuk mencatat penerimaan material/suku cadang yang dikirim ke dealer (terhadap Purchase Invoice No. atau Local PO), serta menambah stok ke Dealer Stock. |
-| **07** | **Repair Order Search Screen**                  | Layar untuk mencari dan melihat detail Repair Order berdasarkan rentang tanggal atau spesifik kendaraan (Registration Number/Chassis Number/Customer ID).       |
+| **07** | **User Management**                             | Layar untuk mengatur dan menambahkan pengguna ROBIN.                                                                                                            |
 
-## Getting Started
+## Memulai Proyek
 
-### Installation
+### 1. Prasyarat
 
-Install the dependencies:
+Pastikan Anda telah menginstal Node.js (disarankan versi LTS) dan npm (atau yarn/pnpm) di sistem Anda.
 
-```bash
-npm install
-```
+### 2. Instalasi Dependensi
 
-### Development
-
-Start the development server with HMR:
+Kloning repositori proyek dan instal semua dependensi yang diperlukan:
 
 ```bash
-npm run dev
+# Kloning repositori (ganti dengan link repositori Anda)
+git clone https://github.com/iamalexhere/robin-dms.git
+cd project-robin-dms
+
+# Instal dependensi menggunakan npm
+npm install -g pnpm@latest-10
 ```
 
-Your application will be available at `http://localhost:5173`.
+### 3. Mode Pengembangan (Development)
 
-## Building for Production
-
-Create a production build:
+Jalankan server pengembangan lokal dengan fitur Hot Module Replacement (HMR) untuk kemudahan live-reloading saat Anda melakukan perubahan pada kode:
 
 ```bash
-npm run build
+pnpm dev
 ```
 
-## Deployment
+Aplikasi akan tersedia dan dapat diakses melalui browser Anda pada alamat berikut: `http://localhost:5173`.
 
-### Docker Deployment
+## 4. Produksi (Building for Production)
 
-To build and run using Docker:
+Untuk membuat build statis yang siap di-deploy ke lingkungan produksi, jalankan perintah build:
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+pnpm build
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+Hasil build yang telah dioptimalkan akan tersimpan dalam direktori dist. File ini siap untuk di-hosting di server manapun.
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+    ⚠️ Catatan Penting Penerapan (Final Submission)
 
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+    Perintah npm run build ini harus dijalankan hanya ketika desain dan fungsionalitas sudah final dan siap untuk diserahkan sebagai source file akhir proyek. Pastikan semua persyaratan desain dan feedback telah dipenuhi sepenuhnya sebelum melakukan build dan penyerahan akhir.
