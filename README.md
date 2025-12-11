@@ -44,7 +44,7 @@ Total terdapat 7 layar unik yang perlu dirancang dalam proyek ini, mencakup fitu
 
 ### 1. Prasyarat
 
-Pastikan Anda telah menginstal Node.js (disarankan versi LTS) dan npm (atau yarn/pnpm) di sistem Anda.
+Pastikan Anda telah menginstal Node.js (disarankan versi LTS) dan pnpm di sistem Anda.
 
 ### 2. Instalasi Dependensi
 
@@ -55,8 +55,11 @@ Kloning repositori proyek dan instal semua dependensi yang diperlukan:
 git clone https://github.com/iamalexhere/robin-dms.git
 cd project-robin-dms
 
-# Instal dependensi menggunakan pnpm
+# Instal pnpm jika belum
 npm install -g pnpm@latest-10
+
+# Install dependensi
+pnpm install
 ```
 
 ### 3. Mode Pengembangan (Development)
@@ -78,7 +81,3 @@ pnpm build
 ```
 
 Hasil build yang telah dioptimalkan akan tersimpan dalam direktori dist. File ini siap untuk di-hosting di server manapun.
-
-⚠️ Catatan Penting Penerapan (Final Submission)
-
-Perintah `npm run build` ini harus dijalankan hanya ketika desain dan fungsionalitas sudah final dan siap untuk diserahkan sebagai source file akhir proyek. Pastikan semua persyaratan desain dan feedback telah dipenuhi sepenuhnya sebelum melakukan build dan penyerahan akhir.
