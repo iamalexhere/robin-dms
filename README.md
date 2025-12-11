@@ -1,87 +1,83 @@
-# Welcome to React Router!
+# ROBIN - Dealer Management System (DMS) App Design
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## Latar Belakang
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+Proyek ini merupakan bagian dari "Project ROBIN - Dealer Management System App Design Challenge" dengan tujuan untuk merancang serangkaian antarmuka pengguna (User Interface) baru untuk aplikasi Dealer Management System (DMS) yang diberi nama ROBIN.
 
-## Features
+Aplikasi ROBIN DMS dirancang untuk menggantikan sistem DMS yang sudah ada/lama pada salah satu bisnis di industri Otomotif yang berfokus pada aktivitas Dealer. Sistem ini akan mendukung proses inti seperti penjualan (sales), layanan (service), suku cadang (spare parts), dan CRM (Customer Relationship Management).
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Tujuan Desain Utama:
 
-## Getting Started
+- Menciptakan desain UI untuk aplikasi web responsif (fokus pada Desktop/Web).
 
-### Installation
+- Menghasilkan 7 layar Desktop/Web yang unik, intuitif, mudah digunakan, dan memiliki hierarki visual yang baik.
 
-Install the dependencies:
+- Menetapkan base design template untuk aplikasi ROBIN DMS baru yang akan digunakan sebagai panduan desain untuk layar-layar selanjutnya di masa mendatang.
+
+## Target Pengguna
+
+Aplikasi ROBIN DMS dirancang untuk digunakan oleh berbagai peran di dalam operasional dealer, antara lain:
+
+- DMS Admin
+
+- DMS Business User
+
+- Dealer Normal User
+
+- Dealer Admin User
+
+## Daftar Halaman
+
+Total terdapat 7 layar unik yang perlu dirancang dalam proyek ini, mencakup fitur-fitur penting dari aplikasi DMS baru:
+
+| No.    | Nama Halaman / Fitur                            | Deskripsi Singkat                                                                                                                                               |
+| :----- | :---------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **01** | **Login Screen**                                | Layar untuk login dengan validasi username dan password, serta fitur Forgot Password dan penanganan locked account.                                             |
+| **02** | **DMS Home Screen**                             | Halaman utama yang menampilkan dashboard kaya fitur, widget, menu navigasi berdasarkan modul, action item, informasi, dan fasilitas pencarian/favorit menu.     |
+| **03** | **Terms and Conditions - Dealer Branch Screen** | Layar untuk Dealer mendefinisikan Terms & Conditions spesifik cabang yang akan dicetak pada dokumen yang menghadap pelanggan, selain T&C dari Manufaktur.       |
+| **04** | **Manufacturer Hierarchy Screen**               | Layar yang memungkinkan Application Administrator untuk membangun dan melihat hierarki Manufaktur dalam tampilan tree yang terstruktur.                         |
+| **05** | **Customer Master Screen**                      | Layar untuk membuat, memelihara, dan melihat detail pelanggan (360 degree view) yang memiliki ID unik di seluruh jaringan DMS.                                  |
+| **06** | **Material Receipt Note (MRN) Screen**          | Layar untuk mencatat penerimaan material/suku cadang yang dikirim ke dealer (terhadap Purchase Invoice No. atau Local PO), serta menambah stok ke Dealer Stock. |
+| **07** | **User Management**                             | Layar untuk mengatur dan menambahkan pengguna ROBIN.                                                                                                            |
+
+## Memulai Proyek
+
+### 1. Prasyarat
+
+Pastikan Anda telah menginstal Node.js (disarankan versi LTS) dan pnpm di sistem Anda.
+
+### 2. Instalasi Dependensi
+
+Kloning repositori proyek dan instal semua dependensi yang diperlukan:
 
 ```bash
-npm install
+# Kloning repositori
+git clone https://github.com/iamalexhere/robin-dms.git
+cd project-robin-dms
+
+# Instal pnpm jika belum
+npm install -g pnpm@latest-10
+
+# Install dependensi
+pnpm install
 ```
 
-### Development
+### 3. Mode Pengembangan (Development)
 
-Start the development server with HMR:
+Jalankan server pengembangan lokal dengan fitur Hot Module Replacement (HMR) untuk kemudahan live-reloading saat Anda melakukan perubahan pada kode:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Aplikasi akan tersedia dan dapat diakses melalui browser Anda pada alamat berikut: `http://localhost:5173`.
 
-## Building for Production
+## 4. Produksi (Building for Production)
 
-Create a production build:
+Untuk membuat build statis yang siap di-deploy ke lingkungan produksi, jalankan perintah build:
 
 ```bash
-npm run build
+pnpm build
 ```
 
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+Hasil build yang telah dioptimalkan akan tersimpan dalam direktori dist. File ini siap untuk di-hosting di server manapun.
