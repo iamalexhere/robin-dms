@@ -81,4 +81,4 @@ Hasil build yang telah dioptimalkan akan tersimpan dalam direktori dist. File in
 
 ⚠️ Catatan Penting Penerapan (Final Submission)
 
-Perintah npm run build ini harus dijalankan hanya ketika desain dan fungsionalitas sudah final dan siap untuk diserahkan sebagai source file akhir proyek. Pastikan semua persyaratan desain dan feedback telah dipenuhi sepenuhnya sebelum melakukan build dan penyerahan akhir.
+Perintah `npm run build` ini harus dijalankan hanya ketika desain dan fungsionalitas sudah final dan siap untuk diserahkan sebagai source file akhir proyek. Pastikan semua persyaratan desain dan feedback telah dipenuhi sepenuhnya sebelum melakukan build dan penyerahan akhir.
