@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-    variant?: 'text' | 'password' | 'number';
+    variant?: 'text' | 'password' | 'number' | 'date'; // Added date
     size?: 'sm' | 'md' | 'lg';
     label?: string;
     error?: string;
@@ -24,12 +24,13 @@ export const Input: React.FC<InputProps> = ({
     const [showPassword, setShowPassword] = useState(false);
 
     const baseStyles =
-        'w-full rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-800 text-white placeholder:text-gray-500 bg-gray-900 border-gray-700';
+        'w-full rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-800 !text-white placeholder:text-gray-500 bg-gray-900 border-gray-700';
 
     const variantStyles = {
         text: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
         password: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
-        number: 'border-[var(--color-second-header)] focus:border-black focus:ring-black'
+        number: 'border-[var(--color-second-header)] focus:border-black focus:ring-black',
+        date: 'border-[var(--color-second-header)] focus:border-black focus:ring-black'
     };
 
     const sizeStyles = {

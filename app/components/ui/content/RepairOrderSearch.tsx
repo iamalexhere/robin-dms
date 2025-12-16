@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '~/components/ui/Button';
+import { Input } from '~/components/ui/Input';
 import Pagination from '~/components/ui/Pagination';
 
 // Types
@@ -122,31 +123,28 @@ const RepairOrderSearch = () => {
             <div className="bg-gray-800 rounded-xl border border-gray-700 p-6 mb-6 shadow-lg">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                     <div className="lg:col-span-2">
-                        <label className="block text-gray-400 text-sm mb-2">Search Term</label>
-                        <input
-                            type="text"
+                        <Input
+                            variant="text"
+                            label="Search Term"
                             placeholder="Reg No, Chassis No, or Customer Name..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 transition-colors placeholder-gray-500"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">From Date</label>
-                        <input
-                            type="date"
+                        <Input
+                            variant="date"
+                            label="From Date"
                             value={dateFrom}
                             onChange={(e) => setDateFrom(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">To Date</label>
-                        <input
-                            type="date"
+                        <Input
+                            variant="date"
+                            label="To Date"
                             value={dateTo}
                             onChange={(e) => setDateTo(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500"
                         />
                     </div>
                 </div>
@@ -157,7 +155,7 @@ const RepairOrderSearch = () => {
                         <select
                             value={statusFilter}
                             onChange={(e) => setStatusFilter(e.target.value)}
-                            className="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-orange-500 appearance-none"
+                            className="w-full bg-gray-900 border border-gray-700/50 rounded-lg px-4 py-2 !text-white focus:outline-none focus:border-orange-500 appearance-none transition-colors"
                         >
                             <option value="All">All Statuses</option>
                             <option value="Open">Open</option>

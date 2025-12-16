@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '~/components/ui/Button';
+import { Input } from '~/components/ui/Input';
 import initialInventory from '../../../data/parts-inventory.json';
 import mrnData from '~/data/mrn-data.json';
 import Pagination from '~/components/ui/Pagination';
@@ -152,131 +153,217 @@ const MRNComponent = () => {
     const inventoryPagination = getPaginatedData(inventory, inventoryPage);
 
     return (
-        <div className="p-6 min-h-full flex flex-col">
+        <div className="p-6 h-full flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="mb-6 flex justify-between items-end">
+            <div className="mb-6 flex justify-between items-end flex-shrink-0">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
-                        <h2 className="text-2xl font-bold text-white">Material Receipt Note (MRN)</h2>
+                        <h2 className="text-2xl font-bold text-white leading-none">Material Receipt Note</h2>
                         <MRNIcon />
                     </div>
-                    <p className="text-gray-400">Receive stock, view history, and check inventory</p>
                 </div>
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-4 border-b border-gray-700 mb-6">
+            <div className="flex gap-6 border-b border-gray-700 mb-6 flex-shrink-0">
                 <button
                     onClick={() => setActiveTab('create')}
-                    className={`pb-3 px-2 text-sm font-medium transition-colors border-b-2 ${activeTab === 'create' ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-400 hover:text-white'
+                    className={`pb-2 px-1 text-sm font-medium transition-all relative ${activeTab === 'create' ? 'text-orange-500' : 'text-gray-400 hover:text-white'
                         }`}
                 >
                     Create MRN
+                    {activeTab === 'create' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                 </button>
                 <button
                     onClick={() => setActiveTab('history')}
-                    className={`pb-3 px-2 text-sm font-medium transition-colors border-b-2 ${activeTab === 'history' ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-400 hover:text-white'
+                    className={`pb-2 px-1 text-sm font-medium transition-all relative ${activeTab === 'history' ? 'text-orange-500' : 'text-gray-400 hover:text-white'
                         }`}
                 >
                     MRN History
+                    {activeTab === 'history' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                 </button>
                 <button
                     onClick={() => setActiveTab('inventory')}
-                    className={`pb-3 px-2 text-sm font-medium transition-colors border-b-2 ${activeTab === 'inventory' ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-400 hover:text-white'
+                    className={`pb-2 px-1 text-sm font-medium transition-all relative ${activeTab === 'inventory' ? 'text-orange-500' : 'text-gray-400 hover:text-white'
                         }`}
                 >
                     Current Stock
+                    {activeTab === 'inventory' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                 </button>
             </div>
 
             {/* Content: Create MRN */}
             {activeTab === 'create' && (
-                <div className="animate-fade-in-up">
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700 shadow-lg mb-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {/* Inputs similar to previous implementation... */}
-                            <div>
-                                <label className="block text-gray-300 mb-2 text-sm font-medium">MRN Type</label>
-                                <select
-                                    value={mrnType}
-                                    onChange={(e) => setMrnType(e.target.value)}
-                                    className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:border-orange-500 appearance-none"
-                                >
-                                    <option>Against Delivery challan</option>
-                                    <option>Cash MRN</option>
-                                    <option>Credit MRN</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-gray-300 mb-2 text-sm font-medium">Invoice No. / PO ID</label>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        value={invoiceNo}
-                                        onChange={(e) => setInvoiceNo(e.target.value)}
-                                        placeholder="Enter: INV-2025-001"
-                                        className="w-full px-4 py-3 bg-gray-900 text-white rounded-lg border border-gray-700 focus:outline-none focus:border-orange-500 placeholder-gray-500"
-                                    />
-                                    <button onClick={handleSearch} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg">Search</button>
+                <div className="flex-1 overflow-y-auto animate-fade-in-up">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        {/* LEFT COLUMN: Input & Search */}
+                        <div className="lg:col-span-1 space-y-6">
+                            {/* Invoice Search Card */}
+                            <div className="bg-gray-800 rounded-xl p-5 border border-gray-700 shadow-lg">
+                                <h3 className="text-white font-bold mb-4 flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    1. Find Invoice / PO
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-gray-300 mb-1.5 text-sm font-medium">Invoice No. / PO ID</label>
+                                        <div className="flex gap-2">
+                                            <div className="flex-1">
+                                                <Input
+                                                    variant="text"
+                                                    value={invoiceNo}
+                                                    onChange={(e) => setInvoiceNo(e.target.value)}
+                                                    placeholder="e.g. INV-2025-001"
+                                                />
+                                            </div>
+                                            <button
+                                                onClick={handleSearch}
+                                                className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors h-[44px]"
+                                            >
+                                                Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {searchError && (
+                                        <div className="bg-red-900/20 text-red-400 p-3 rounded-lg text-sm border border-red-900/50">
+                                            ⚠️ {searchError}
+                                        </div>
+                                    )}
+                                    <div className="text-xs text-gray-500 bg-gray-900/50 p-3 rounded border border-gray-800">
+                                        <p className="font-semibold mb-1">Try searching for:</p>
+                                        <div className="flex gap-2">
+                                            <span className="bg-gray-800 px-2 py-1 rounded text-gray-300 cursor-pointer hover:text-white" onClick={() => setInvoiceNo('INV-2025-001')}>INV-2025-001</span>
+                                            <span className="bg-gray-800 px-2 py-1 rounded text-gray-300 cursor-pointer hover:text-white" onClick={() => setInvoiceNo('INV-2025-002')}>INV-2025-002</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                {searchError && <p className="text-red-400 text-xs mt-1">{searchError}</p>}
                             </div>
-                            <div>
-                                <label className="block text-gray-300 mb-2 text-sm font-medium">MRN Date</label>
-                                <input type="date" value={mrnDate} readOnly className="w-full px-4 py-3 bg-gray-700/50 text-gray-400! rounded-lg border border-gray-600 cursor-not-allowed" />
+
+                            {/* MRN Details Card */}
+                            <div className="bg-gray-800 rounded-xl p-5 border border-gray-700 shadow-lg">
+                                <h3 className="text-white font-bold mb-4 flex items-center gap-2">
+                                    <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    2. MRN Details
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-gray-400 mb-1.5 text-sm font-medium">MRN Type</label>
+                                        <select
+                                            value={mrnType}
+                                            onChange={(e) => setMrnType(e.target.value)}
+                                            className="w-full px-4 py-2.5 bg-gray-900 border border-gray-700 rounded-lg !text-white focus:outline-none focus:border-orange-500 appearance-none"
+                                        >
+                                            <option>Against Delivery challan</option>
+                                            <option>Cash MRN</option>
+                                            <option>Credit MRN</option>
+                                        </select>
+                                    </div>
+                                    <Input
+                                        variant="date"
+                                        label="MRN Date"
+                                        value={mrnDate}
+                                        disabled={true}
+                                        className="!text-gray-400 cursor-not-allowed bg-gray-900/50"
+                                    />
+                                </div>
                             </div>
+                        </div>
+
+                        {/* RIGHT COLUMN: Stock Details & Summary */}
+                        <div className="lg:col-span-2 flex flex-col h-full">
+                            {parts.length > 0 ? (
+                                <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg flex flex-col h-full">
+                                    <div className="px-6 py-4 border-b border-gray-700 bg-gray-800/80 backdrop-blur flex justify-between items-center">
+                                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                            <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            3. Review Stock Items
+                                        </h3>
+                                        <span className="px-3 py-1 bg-gray-700 rounded-full text-xs font-medium text-gray-300">
+                                            {parts.length} Items Found
+                                        </span>
+                                    </div>
+
+                                    <div className="flex-1 overflow-x-auto min-h-0">
+                                        <table className="w-full text-left text-gray-300">
+                                            <thead className="text-xs uppercase bg-gray-900/50 text-gray-400 sticky top-0 backdrop-blur-sm z-10">
+                                                <tr>
+                                                    <th className="px-6 py-3">Part No</th>
+                                                    <th className="px-6 py-3">Description</th>
+                                                    <th className="px-6 py-3 text-right">Qty</th>
+                                                    <th className="px-6 py-3 text-right">Amount</th>
+                                                    <th className="px-6 py-3 text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-gray-700">
+                                                {parts.map((part) => (
+                                                    <tr key={part.id} className="hover:bg-gray-700/30 transition-colors">
+                                                        <td className="px-6 py-4 text-white font-medium">{part.partNumber}</td>
+                                                        <td className="px-6 py-4 text-sm max-w-[200px] truncate" title={part.description}>{part.description}</td>
+                                                        <td className="px-6 py-4 text-right">{part.qty}</td>
+                                                        <td className="px-6 py-4 text-right">Rp {part.amount.toLocaleString()}</td>
+                                                        <td className="px-6 py-4 text-center">
+                                                            <select
+                                                                value={part.status}
+                                                                onChange={(e) => handleStatusChange(part.id, e.target.value as Part['status'])}
+                                                                className={`text-xs font-semibold px-2 py-1.5 rounded-lg border focus:outline-none cursor-pointer ${part.status === 'Accepted' ? 'bg-green-900/30 text-green-400 border-green-800' :
+                                                                    part.status === 'Damaged' ? 'bg-red-900/30 text-red-400 border-red-800' :
+                                                                        'bg-blue-900/30 text-blue-400 border-blue-800'
+                                                                    }`}
+                                                            >
+                                                                <option value="Pending" className="bg-gray-800 text-gray-300">Pending</option>
+                                                                <option value="Accepted" className="bg-gray-800 text-green-400 font-bold">Accepted</option>
+                                                                <option value="Damaged" className="bg-gray-800 text-red-400 font-bold">Damaged</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    {/* Footer Summary */}
+                                    <div className="p-6 border-t border-gray-700 bg-gray-900/30">
+                                        <div className="flex justify-between items-center mb-6">
+                                            <div>
+                                                <p className="text-sm text-gray-400">Total Value</p>
+                                                <p className="text-2xl font-bold text-white">
+                                                    Rp {parts.reduce((sum, p) => sum + p.amount, 0).toLocaleString()}
+                                                </p>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-sm text-gray-400">Items to Receive</p>
+                                                <p className="text-2xl font-bold text-white">{parts.filter(p => p.status === 'Accepted').length} <span className="text-sm font-normal text-gray-500">of {parts.length}</span></p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-3">
+                                            <Button variant="secondary" size="lg" onClick={() => setParts([])} className="flex-1">Discard</Button>
+                                            <Button variant="primary" size="lg" onClick={handleSubmit} disabled={isSubmitting} className="flex-[2]">
+                                                {isSubmitting ? 'Processing...' : 'Confirm Receipt'}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="h-full flex flex-col items-center justify-center p-12 bg-gray-800/50 rounded-xl border border-dashed border-gray-700 text-center">
+                                    <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-4 shadow-inner">
+                                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                        </svg>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2">No Items Loaded</h3>
+                                    <p className="text-gray-400 max-w-xs mx-auto">
+                                        Please search for a valid Invoice or PO number on the left to load stock items.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
-
-                    {submitSuccess && (
-                        <div className="bg-green-500/10 border border-green-500 text-green-500 px-4 py-3 rounded-lg mb-6 flex items-center gap-2">
-                            Stock successfully received! Redirecting to history...
-                        </div>
-                    )}
-
-                    {parts.length > 0 && (
-                        <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg">
-                            <div className="px-6 py-4 border-b border-gray-700"><h3 className="text-lg font-bold text-white">Stock Details</h3></div>
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-left text-gray-300">
-                                    <thead className="text-xs uppercase bg-gray-900/50 text-gray-400">
-                                        <tr>
-                                            <th className="px-6 py-3">Part No</th>
-                                            <th className="px-6 py-3">Desc</th>
-                                            <th className="px-6 py-3 text-right">Qty</th>
-                                            <th className="px-6 py-3 text-right">Amount</th>
-                                            <th className="px-6 py-3">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-700">
-                                        {parts.map((part) => (
-                                            <tr key={part.id}>
-                                                <td className="px-6 py-4 text-white">{part.partNumber}</td>
-                                                <td className="px-6 py-4">{part.description}</td>
-                                                <td className="px-6 py-4 text-right">{part.qty}</td>
-                                                <td className="px-6 py-4 text-right">Rp {part.amount.toLocaleString()}</td>
-                                                <td className="px-6 py-4">
-                                                    <select
-                                                        value={part.status}
-                                                        onChange={(e) => handleStatusChange(part.id, e.target.value as Part['status'])}
-                                                        className="text-xs font-semibold px-2 py-1 rounded-full bg-gray-700 text-gray-300 border border-gray-600 focus:outline-none"
-                                                    >
-                                                        <option value="Pending">Pending</option>
-                                                        <option value="Accepted">Accepted</option>
-                                                        <option value="Damaged">Damaged</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="p-6 border-t border-gray-700 flex justify-end gap-3">
-                                <Button variant="secondary" size="md" onClick={() => setParts([])}>Cancel</Button>
-                                <Button variant="primary" size="md" onClick={handleSubmit} disabled={isSubmitting}>{isSubmitting ? 'Processing...' : 'Submit to Stock'}</Button>
-                            </div>
-                        </div>
-                    )}
                 </div>
             )}
 

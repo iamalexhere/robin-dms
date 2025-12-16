@@ -47,7 +47,7 @@ function Search({ value, onChange, placeholder = "Search...", className = "" }: 
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-transparent outline-none text-white placeholder-white/50"
+                className="w-full bg-transparent outline-none !text-white placeholder-white/50"
             />
         </div>
     );
