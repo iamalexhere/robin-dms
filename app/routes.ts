@@ -8,12 +8,9 @@ export default [
 
     layout("routes/dashboard.tsx", [
         route("dashboard", "routes/dashboard.home.tsx"),
-        route("user-management", "routes/dashboard.users.tsx"),
         route("manufacturer", "routes/dashboard.manufacturer.tsx"),
         route("reports", "routes/dashboard.reports.tsx"),
         route("mrn", "routes/dashboard.mrn.tsx"),
-        route("masters", "routes/dashboard.masters.tsx"),
-        route("system-settings", "routes/dashboard.settings.tsx"),
         route("terms", "routes/dashboard.terms.tsx"),
         route("customer", "routes/dashboard.customer.tsx"),
         route("repair-orders", "routes/dashboard.repair-orders.tsx")

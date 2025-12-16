@@ -15,12 +15,12 @@ export default function Search({
 }: SearchProps) {
     return (
         <div
-            className={`flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-300 ${className}`}
+            className={`flex items-center gap-3 bg-gray-900 px-4 py-2 rounded-lg shadow-sm border border-gray-700 ${className}`}
         >
             {/* Icon Search */}
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-600"
+                className="h-5 w-5 text-gray-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
@@ -39,7 +39,7 @@ export default function Search({
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-400"
+                className="w-full bg-transparent outline-none text-white placeholder-gray-500"
             />
         </div>
     );

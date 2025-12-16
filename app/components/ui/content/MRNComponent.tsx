@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '~/components/ui/Button';
 import initialInventory from '../../../data/parts-inventory.json';
 import mrnData from '~/data/mrn-data.json';
+import Pagination from '~/components/ui/Pagination';
 
 
 // Types
@@ -53,6 +54,11 @@ const MRNComponent = () => {
     // Feature State
     const [history, setHistory] = useState<MRNHistoryItem[]>(mrnData.initialHistory as MRNHistoryItem[]);
     const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
+
+    // Pagination State
+    const [historyPage, setHistoryPage] = useState(1);
+    const [inventoryPage, setInventoryPage] = useState(1);
+    const itemsPerPage = 5;
 
     // Form State
     const [mrnType, setMrnType] = useState('Credit MRN');
@@ -132,8 +138,21 @@ const MRNComponent = () => {
         }, 1500);
     };
 
+    // Pagination Logic Helper
+    const getPaginatedData = <T,>(data: T[], page: number) => {
+        const start = (page - 1) * itemsPerPage;
+        return {
+            currentItems: data.slice(start, start + itemsPerPage),
+            totalPages: Math.ceil(data.length / itemsPerPage),
+            totalItems: data.length
+        };
+    };
+
+    const historyPagination = getPaginatedData(history, historyPage);
+    const inventoryPagination = getPaginatedData(inventory, inventoryPage);
+
     return (
-        <div className="p-6 h-full flex flex-col">
+        <div className="p-6 min-h-full flex flex-col">
             {/* Header */}
             <div className="mb-6 flex justify-between items-end">
                 <div>
@@ -196,7 +215,7 @@ const MRNComponent = () => {
                                         value={invoiceNo}
                                         onChange={(e) => setInvoiceNo(e.target.value)}
                                         placeholder="Enter: INV-2025-001"
-                                        className="w-full px-4 py-3 bg-gray-700 text-white! rounded-lg border border-gray-600 focus:outline-none focus:border-orange-500"
+                                        className="w-full px-4 py-3 bg-gray-900 text-white rounded-lg border border-gray-700 focus:outline-none focus:border-orange-500 placeholder-gray-500"
                                     />
                                     <button onClick={handleSearch} className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg">Search</button>
                                 </div>
@@ -263,59 +282,87 @@ const MRNComponent = () => {
 
             {/* Content: MRN History */}
             {activeTab === 'history' && (
-                <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg animate-fade-in-up">
-                    <table className="w-full text-left text-gray-300">
-                        <thead className="text-xs uppercase bg-gray-900 text-gray-400">
-                            <tr>
-                                <th className="px-6 py-3">MRN No</th>
-                                <th className="px-6 py-3">Date</th>
-                                <th className="px-6 py-3">Invoice No</th>
-                                <th className="px-6 py-3 text-center">Items</th>
-                                <th className="px-6 py-3 text-right">Total Amount</th>
-                                <th className="px-6 py-3">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-700">
-                            {history.map((item) => (
-                                <tr key={item.id} className="hover:bg-gray-700/50">
-                                    <td className="px-6 py-4 font-medium text-white">{item.mrnNo}</td>
-                                    <td className="px-6 py-4">{item.mrnDate}</td>
-                                    <td className="px-6 py-4">{item.invoiceNo}</td>
-                                    <td className="px-6 py-4 text-center">{item.itemCount}</td>
-                                    <td className="px-6 py-4 text-right">Rp {item.totalAmount.toLocaleString()}</td>
-                                    <td className="px-6 py-4"><span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-900 text-green-300 border border-green-700">{item.status}</span></td>
+                <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg animate-fade-in-up flex flex-col">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-gray-300">
+                            <thead className="text-xs uppercase bg-gray-900 text-gray-400">
+                                <tr>
+                                    <th className="px-6 py-3">MRN No</th>
+                                    <th className="px-6 py-3">Date</th>
+                                    <th className="px-6 py-3">Invoice No</th>
+                                    <th className="px-6 py-3 text-center">Items</th>
+                                    <th className="px-6 py-3 text-right">Total Amount</th>
+                                    <th className="px-6 py-3">Status</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-700">
+                                {historyPagination.currentItems.map((item) => (
+                                    <tr key={item.id} className="hover:bg-gray-700/50">
+                                        <td className="px-6 py-4 font-medium text-white">{item.mrnNo}</td>
+                                        <td className="px-6 py-4">{item.mrnDate}</td>
+                                        <td className="px-6 py-4">{item.invoiceNo}</td>
+                                        <td className="px-6 py-4 text-center">{item.itemCount}</td>
+                                        <td className="px-6 py-4 text-right">Rp {item.totalAmount.toLocaleString()}</td>
+                                        <td className="px-6 py-4"><span className="px-2 py-1 rounded-full text-xs font-semibold bg-green-900 text-green-300 border border-green-700">{item.status}</span></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {/* Pagination for History */}
+                    {historyPagination.totalItems > 0 && (
+                        <div className="px-6 border-t border-gray-700">
+                            <Pagination
+                                currentPage={historyPage}
+                                totalPages={historyPagination.totalPages}
+                                onPageChange={setHistoryPage}
+                                totalItems={historyPagination.totalItems}
+                                itemsPerPage={itemsPerPage}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
 
             {/* Content: Current Stock */}
             {activeTab === 'inventory' && (
-                <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg animate-fade-in-up">
-                    <table className="w-full text-left text-gray-300">
-                        <thead className="text-xs uppercase bg-gray-900 text-gray-400">
-                            <tr>
-                                <th className="px-6 py-3">Part Number</th>
-                                <th className="px-6 py-3">Description</th>
-                                <th className="px-6 py-3">UOM</th>
-                                <th className="px-6 py-3">Location</th>
-                                <th className="px-6 py-3 text-right">Current Stock</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-700">
-                            {inventory.map((item) => (
-                                <tr key={item.id} className="hover:bg-gray-700/50">
-                                    <td className="px-6 py-4 font-medium text-white">{item.partNumber}</td>
-                                    <td className="px-6 py-4">{item.description}</td>
-                                    <td className="px-6 py-4">{item.uom}</td>
-                                    <td className="px-6 py-4 text-orange-400">{item.location}</td>
-                                    <td className="px-6 py-4 text-right font-bold text-white">{item.stock}</td>
+                <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden shadow-lg animate-fade-in-up flex flex-col">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-gray-300">
+                            <thead className="text-xs uppercase bg-gray-900 text-gray-400">
+                                <tr>
+                                    <th className="px-6 py-3">Part Number</th>
+                                    <th className="px-6 py-3">Description</th>
+                                    <th className="px-6 py-3">UOM</th>
+                                    <th className="px-6 py-3">Location</th>
+                                    <th className="px-6 py-3 text-right">Current Stock</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-700">
+                                {inventoryPagination.currentItems.map((item) => (
+                                    <tr key={item.id} className="hover:bg-gray-700/50">
+                                        <td className="px-6 py-4 font-medium text-white">{item.partNumber}</td>
+                                        <td className="px-6 py-4">{item.description}</td>
+                                        <td className="px-6 py-4">{item.uom}</td>
+                                        <td className="px-6 py-4 text-orange-400">{item.location}</td>
+                                        <td className="px-6 py-4 text-right font-bold text-white">{item.stock}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {/* Pagination for Inventory */}
+                    {inventoryPagination.totalItems > 0 && (
+                        <div className="px-6 border-t border-gray-700">
+                            <Pagination
+                                currentPage={inventoryPage}
+                                totalPages={inventoryPagination.totalPages}
+                                onPageChange={setInventoryPage}
+                                totalItems={inventoryPagination.totalItems}
+                                itemsPerPage={itemsPerPage}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
         </div>

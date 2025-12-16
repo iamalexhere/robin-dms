@@ -206,8 +206,8 @@ const GenerateModal = ({
 );
 
 const ReportsContent = () => {
-    const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [expandedCategories, setExpandedCategories] = useState<string[]>(['all']); // Expand 'all' or specific ids
     const [showModal, setShowModal] = useState<boolean>(false);
     const [selectedReport, setSelectedReport] = useState<Report | null>(null);
     const [isGenerating, setIsGenerating] = useState<boolean>(false);
@@ -216,12 +216,11 @@ const ReportsContent = () => {
     const [dateTo, setDateTo] = useState<string>('');
     const [format, setFormat] = useState<string>('PDF');
 
-    const filteredReports = REPORTS_DATA.filter(report => {
-        const matchCategory = selectedCategory === 'all' || report.category === selectedCategory;
-        const matchSearch = report.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            report.desc.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchCategory && matchSearch;
-    });
+    const toggleCategory = (catId: string) => {
+        setExpandedCategories(prev =>
+            prev.includes(catId) ? prev.filter(id => id !== catId) : [...prev, catId]
+        );
+    };
 
     const handleGenerateClick = (report: Report) => {
         setSelectedReport(report);
@@ -252,7 +251,6 @@ const ReportsContent = () => {
 
     const handleDownload = () => {
         if (!selectedReport) return;
-
         try {
             if (format === 'PDF') {
                 downloadPDF(selectedReport, dateFrom, dateTo);
@@ -274,6 +272,21 @@ const ReportsContent = () => {
         setIsGenerating(false);
     };
 
+    // Filter reports based on search
+    const filteredReports = REPORTS_DATA.filter(report =>
+        report.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        report.desc.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    // Group reports by category
+    const reportsByCategory = REPORT_CATEGORIES
+        .filter(cat => cat.id !== 'all') // Process real categories
+        .map(cat => ({
+            ...cat,
+            reports: filteredReports.filter(r => r.category === cat.id)
+        }))
+        .filter(group => group.reports.length > 0); // Hide empty groups (e.g. if search filters them out)
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
             <div className="mb-6">
@@ -285,19 +298,64 @@ const ReportsContent = () => {
             </div>
 
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
-            <CategoryTabs categories={REPORT_CATEGORIES} selected={selectedCategory} onSelect={setSelectedCategory} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredReports.map(report => (
-                    <ReportCard key={report.id} report={report} onGenerate={handleGenerateClick} />
-                ))}
+            <div className="space-y-4 max-w-4xl">
+                {reportsByCategory.length > 0 ? (
+                    reportsByCategory.map(category => (
+                        <div key={category.id} className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+                            <button
+                                onClick={() => toggleCategory(category.id)}
+                                className="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-750 transition-colors"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xl font-bold text-orange-400">{category.name}</span>
+                                    <span className="bg-gray-700 text-gray-300 text-xs px-2 py-0.5 rounded-full">
+                                        {category.reports.length}
+                                    </span>
+                                </div>
+                                <svg
+                                    className={`w-5 h-5 text-gray-400 transition-transform ${expandedCategories.includes(category.id) ? 'rotate-180' : ''}`}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Accordion Content */}
+                            {expandedCategories.includes(category.id) && (
+                                <div className="border-t border-gray-700 divide-y divide-gray-700">
+                                    {category.reports.map(report => (
+                                        <div key={report.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-colors group">
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-2xl p-2 bg-gray-700/50 rounded-lg">{report.icon}</span>
+                                                <div>
+                                                    <h4 className="text-white font-medium">{report.name}</h4>
+                                                    <p className="text-sm text-gray-400">{report.desc}</p>
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={() => handleGenerateClick(report)}
+                                                className="px-4 py-2 bg-transparent border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white rounded-lg text-sm font-medium transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                                            >
+                                                Generate
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <div className="text-center py-12 bg-gray-800/50 rounded-xl border-2 border-dashed border-gray-700">
+                        <svg className="w-12 h-12 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p className="text-gray-400 text-lg">No reports found matching "{searchQuery}"</p>
+                    </div>
+                )}
             </div>
-
-            {filteredReports.length === 0 && (
-                <div className="text-center py-12">
-                    <p className="text-gray-400">No reports found matching your search</p>
-                </div>
-            )}
 
             {showModal && selectedReport && (
                 <GenerateModal
