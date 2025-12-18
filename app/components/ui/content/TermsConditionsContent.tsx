@@ -5,7 +5,7 @@ import { TermsIcon, FilterTabs, TermsCard, TermsModal, HistoryModal } from './co
 
 const { termsData: TERMS_DATA, historyData: HISTORY_DATA } = termsData as unknown as { termsData: TermsCondition[], historyData: any[] };
 
-import Search from '~/components/ui/Search';
+import { Input } from '~/components/ui/Input';
 
 const TermsConditionsContent = () => {
     const [activeView, setActiveView] = useState<'all' | 'manufacturer' | 'dealer' | 'revised' | 'history'>('all');
@@ -105,35 +105,50 @@ const TermsConditionsContent = () => {
     const termHistory = selectedTerm ? HISTORY_DATA.filter(h => h.termsId === selectedTerm.id) : [];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
+        <div className="p-6 h-full flex flex-col overflow-hidden">
             {/* Header */}
-            <div className="mb-6">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                        <h2 className="text-2xl font-bold text-white">Terms & Conditions Management</h2>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 flex-shrink-0">
+                <div>
+                    <div className="flex items-center gap-2 mb-1">
+                        <h2 className="text-2xl font-bold text-white leading-none">Terms & Conditions</h2>
                         <TermsIcon />
+                    </div>
+                </div>
+
+                <div className="flex gap-2 w-full md:w-auto items-end">
+                    <div className="relative flex-1 md:w-80">
+                        <Input
+                            variant="text"
+                            placeholder="Search terms, document type..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            icon={
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            }
+                        />
                     </div>
                     <button
                         onClick={handleCreate}
-                        className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2"
+                        className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2 whitespace-nowrap"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
                         </svg>
-                        Create New T&C
+                        Create New
                     </button>
                 </div>
-                <p className="text-gray-400">Manage terms and conditions for dealer branch and manufacturer documents</p>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+            {/* Navigation Tabs (Underline Style) */}
+            <div className="flex gap-6 border-b border-gray-700 mb-6 overflow-x-auto flex-shrink-0">
                 {[
-                    { key: 'all', label: 'All Terms & Conditions', count: termsData.length },
-                    { key: 'manufacturer', label: 'Manufacturer T&C', count: manufacturerCount },
-                    { key: 'dealer', label: 'Dealer Branch T&C', count: dealerCount },
-                    { key: 'revised', label: 'Revised T&C', count: revisedCount },
-                    { key: 'history', label: 'T&C History', count: HISTORY_DATA.length }
+                    { key: 'all', label: 'All Terms', count: termsData.length },
+                    { key: 'manufacturer', label: 'Manufacturer', count: manufacturerCount },
+                    { key: 'dealer', label: 'Dealer Branch', count: dealerCount },
+                    { key: 'revised', label: 'Revised', count: revisedCount },
+                    { key: 'history', label: 'History', count: HISTORY_DATA.length }
                 ].map(tab => (
                     <button
                         key={tab.key}
@@ -141,110 +156,112 @@ const TermsConditionsContent = () => {
                             setActiveView(tab.key as any);
                             setFilterType('all');
                         }}
-                        className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${activeView === tab.key
-                            ? 'bg-orange-500 text-white'
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                        className={`pb-2 px-1 text-sm font-medium transition-all relative whitespace-nowrap ${activeView === tab.key
+                            ? 'text-orange-500'
+                            : 'text-gray-400 hover:text-white'
                             }`}
                     >
-                        {tab.label} ({tab.count})
+                        {tab.label} <span className="ml-1 text-xs opacity-70">({tab.count})</span>
+                        {activeView === tab.key && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                     </button>
                 ))}
             </div>
 
-            {/* Statistics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
-                    <p className="text-orange-400 text-sm font-medium mb-2">Total Active T&C</p>
-                    <p className="text-3xl font-bold text-white">{activeCount}</p>
+            {/* Statistics Cards (Compact) */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 flex-shrink-0">
+                <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                    <p className="text-orange-400 text-xs font-medium uppercase tracking-wider mb-1">Total Active</p>
+                    <p className="text-2xl font-bold text-white">{activeCount}</p>
                 </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
-                    <p className="text-blue-400 text-sm font-medium mb-2">Manufacturer T&C</p>
-                    <p className="text-3xl font-bold text-white">{manufacturerCount}</p>
+                <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                    <p className="text-blue-400 text-xs font-medium uppercase tracking-wider mb-1">Manufacturer</p>
+                    <p className="text-2xl font-bold text-white">{manufacturerCount}</p>
                 </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
-                    <p className="text-purple-400 text-sm font-medium mb-2">Dealer Branch T&C</p>
-                    <p className="text-3xl font-bold text-white">{dealerCount}</p>
+                <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                    <p className="text-purple-400 text-xs font-medium uppercase tracking-wider mb-1">Dealer Branch</p>
+                    <p className="text-2xl font-bold text-white">{dealerCount}</p>
                 </div>
-                <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700">
-                    <p className="text-yellow-400 text-sm font-medium mb-2">Revised T&C</p>
-                    <p className="text-3xl font-bold text-white">{revisedCount}</p>
+                <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                    <p className="text-yellow-400 text-xs font-medium uppercase tracking-wider mb-1">Revised</p>
+                    <p className="text-2xl font-bold text-white">{revisedCount}</p>
                 </div>
             </div>
 
             {/* Content based on active view */}
-            {activeView === 'history' ? (
-                // History View
-                <div className="space-y-3">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xl font-bold text-white">Complete Change History</h3>
-                        <p className="text-gray-400 text-sm">Total changes: {HISTORY_DATA.length}</p>
-                    </div>
-
-                    {HISTORY_DATA.map((item) => {
-                        const relatedTerm = termsData.find(t => t.id === item.termsId);
-                        return (
-                            <div key={item.id} className="bg-gray-700 rounded-lg p-4 border border-gray-600 hover:border-orange-500 transition-colors">
-                                <div className="flex items-start justify-between mb-2">
-                                    <div className="flex items-center gap-3 flex-wrap">
-                                        <span className="text-orange-500 font-semibold">{item.version}</span>
-                                        {relatedTerm && (
-                                            <span className="text-white font-medium">• {relatedTerm.documentType}</span>
-                                        )}
-                                        {item.previousVersion && (
-                                            <span className="text-gray-500 text-sm">← from {item.previousVersion}</span>
-                                        )}
-                                        <span className={`px-2 py-1 rounded text-xs font-medium ${item.action === 'created' ? 'bg-green-600 text-white' :
-                                            item.action === 'updated' ? 'bg-blue-600 text-white' :
-                                                item.action === 'activated' ? 'bg-emerald-600 text-white' :
-                                                    'bg-red-600 text-white'
-                                            }`}>
-                                            {item.action.toUpperCase()}
-                                        </span>
-                                    </div>
-                                    <span className="text-gray-400 text-sm whitespace-nowrap ml-2">{item.date}</span>
-                                </div>
-                                <p className="text-gray-300 text-sm mb-2">{item.changes}</p>
-                                <p className="text-gray-500 text-xs">Modified by: {item.user}</p>
-                            </div>
-                        );
-                    })}
-                </div>
-            ) : (
-                // Terms List View
-                <>
-                    <Search
-                        value={searchQuery}
-                        onChange={setSearchQuery}
-                        placeholder="Search terms & conditions..."
-                        className="mb-6"
-                    />
-
-                    {activeView === 'all' && <FilterTabs selected={filterType} onSelect={setFilterType} />}
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {filteredTerms.map(term => (
-                            <TermsCard
-                                key={term.id}
-                                term={term}
-                                onView={() => handleView(term)}
-                                onEdit={() => handleEdit(term)}
-                                onToggleActive={() => handleToggleActive(term.id)}
-                                onViewHistory={() => handleViewHistory(term)}
-                            />
-                        ))}
-                    </div>
-
-                    {filteredTerms.length === 0 && (
-                        <div className="text-center py-12">
-                            <svg className="w-16 h-16 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <p className="text-gray-400 text-lg mb-2">No terms & conditions found</p>
-                            <p className="text-gray-500 text-sm">Try adjusting your search or filters</p>
+            <div className="flex-1 overflow-y-auto min-h-0">
+                {activeView === 'history' ? (
+                    // History View
+                    <div className="space-y-3">
+                        <div className="flex items-center justify-between mb-4 sticky top-0 bg-[#1f1f1f] py-2 z-10">
+                            <h3 className="text-lg font-bold text-white">Change Log</h3>
+                            <button onClick={() => setActiveView('all')} className="text-sm text-blue-400 hover:text-blue-300">Back to List</button>
                         </div>
-                    )}
-                </>
-            )}
+
+                        {HISTORY_DATA.map((item) => {
+                            const relatedTerm = termsData.find(t => t.id === item.termsId);
+                            return (
+                                <div key={item.id} className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-orange-500/50 transition-colors">
+                                    <div className="flex items-start justify-between mb-2">
+                                        <div className="flex items-center gap-3 flex-wrap">
+                                            <span className="text-orange-500 font-mono font-bold">{item.version}</span>
+                                            {relatedTerm && (
+                                                <span className="text-white font-medium">• {relatedTerm.documentType}</span>
+                                            )}
+                                            {item.previousVersion && (
+                                                <span className="text-gray-500 text-sm">← {item.previousVersion}</span>
+                                            )}
+                                            <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wide ${item.action === 'created' ? 'bg-green-900/50 text-green-400 border border-green-800' :
+                                                item.action === 'updated' ? 'bg-blue-900/50 text-blue-400 border border-blue-800' :
+                                                    item.action === 'activated' ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-800' :
+                                                        'bg-red-900/50 text-red-400 border border-red-800'
+                                                }`}>
+                                                {item.action}
+                                            </span>
+                                        </div>
+                                        <span className="text-gray-500 text-xs whitespace-nowrap ml-2">{item.date}</span>
+                                    </div>
+                                    <p className="text-gray-300 text-sm mb-2">{item.changes}</p>
+                                    <p className="text-gray-600 text-xs">By {item.user}</p>
+                                </div>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    // Terms List View
+                    <>
+                        {activeView === 'all' && (
+                            <div className="mb-4">
+                                <FilterTabs selected={filterType} onSelect={setFilterType} />
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-6">
+                            {filteredTerms.length > 0 ? (
+                                filteredTerms.map(term => (
+                                    <TermsCard
+                                        key={term.id}
+                                        term={term}
+                                        onView={() => handleView(term)}
+                                        onEdit={() => handleEdit(term)}
+                                        onToggleActive={() => handleToggleActive(term.id)}
+                                        onViewHistory={() => handleViewHistory(term)}
+                                    />
+                                ))
+                            ) : (
+                                <div className="col-span-full py-12 flex flex-col items-center justify-center text-center opacity-50">
+                                    <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                                        <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <p className="text-gray-300 text-lg">No terms found</p>
+                                    <p className="text-gray-500 text-sm">Try adjusting filters</p>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
+            </div>
 
             {/* Modals */}
             {showModal && (

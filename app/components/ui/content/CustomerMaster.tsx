@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '~/components/ui/Button';
+import { Input } from '~/components/ui/Input';
+import Pagination from '~/components/ui/Pagination';
 
 // Types
 interface Customer {
@@ -40,63 +42,91 @@ const MOCK_HISTORY: TransactionHistory[] = [
     { id: '2', date: '2025-04-20', type: 'Service', referenceNo: 'RO-2025-101', amount: 5000, description: '1st Free Service' },
     { id: '3', date: '2025-08-10', type: 'Service', referenceNo: 'RO-2025-245', amount: 8500, description: 'General Service & Oil Change' },
     { id: '4', date: '2025-11-05', type: 'Parts', referenceNo: 'INV-PARTS-099', amount: 2500, description: 'Purchase of Accessories' },
+    { id: '5', date: '2025-12-01', type: 'Service', referenceNo: 'RO-2025-300', amount: 12000, description: 'Brake Pad Replacement' },
+    { id: '6', date: '2025-12-15', type: 'Sales', referenceNo: 'INV-2025-055', amount: 50000, description: 'Insurance Renewal' },
+    { id: '7', date: '2026-01-10', type: 'Service', referenceNo: 'RO-2026-012', amount: 6000, description: 'Regular Checkup' },
+    { id: '8', date: '2026-02-05', type: 'Parts', referenceNo: 'INV-PARTS-150', amount: 1500, description: 'Wiper Blades' },
+    { id: '9', date: '2026-03-20', type: 'Service', referenceNo: 'RO-2026-088', amount: 25000, description: 'Major Service' },
+    { id: '10', date: '2026-05-12', type: 'Parts', referenceNo: 'INV-PARTS-200', amount: 8000, description: 'Battery Replacement' },
 ];
 
-const Customer360View = ({ history }: { history: TransactionHistory[] }) => (
-    <div className="space-y-6 animate-fade-in-up">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
-                <p className="text-gray-400 text-sm">Total Spend</p>
-                <p className="text-2xl font-bold text-white">Rp {history.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()}</p>
-            </div>
-            <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
-                <p className="text-gray-400 text-sm">Total Transactions</p>
-                <p className="text-2xl font-bold text-white">{history.length}</p>
-            </div>
-            <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
-                <p className="text-gray-400 text-sm">Last Visit</p>
-                <p className="text-2xl font-bold text-white">{history[history.length - 1]?.date || 'N/A'}</p>
-            </div>
-        </div>
+const Customer360View = ({ history }: { history: TransactionHistory[] }) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
 
-        <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-700">
-                <h3 className="text-lg font-bold text-white">Interaction History</h3>
+    const totalItems = history.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const currentItems = history.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    return (
+        <div className="space-y-6 animate-fade-in-up">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
+                    <p className="text-gray-400 text-sm">Total Spend</p>
+                    <p className="text-2xl font-bold text-white">Rp {history.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()}</p>
+                </div>
+                <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
+                    <p className="text-gray-400 text-sm">Total Transactions</p>
+                    <p className="text-2xl font-bold text-white">{history.length}</p>
+                </div>
+                <div className="bg-gray-700/50 p-4 rounded-xl border border-gray-600">
+                    <p className="text-gray-400 text-sm">Last Visit</p>
+                    <p className="text-2xl font-bold text-white">{history[history.length - 1]?.date || 'N/A'}</p>
+                </div>
             </div>
-            <div className="overflow-x-auto">
-                <table className="w-full text-left text-gray-300">
-                    <thead className="text-xs uppercase bg-gray-900/50 text-gray-400">
-                        <tr>
-                            <th className="px-6 py-3">Date</th>
-                            <th className="px-6 py-3">Type</th>
-                            <th className="px-6 py-3">Reference</th>
-                            <th className="px-6 py-3">Description</th>
-                            <th className="px-6 py-3 text-right">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-700">
-                        {history.map((item) => (
-                            <tr key={item.id} className="hover:bg-gray-700/30">
-                                <td className="px-6 py-4 text-white font-medium">{item.date}</td>
-                                <td className="px-6 py-4">
-                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${item.type === 'Sales' ? 'bg-green-900 text-green-300 border border-green-700' :
-                                            item.type === 'Service' ? 'bg-blue-900 text-blue-300 border border-blue-700' :
-                                                'bg-purple-900 text-purple-300 border border-purple-700'
-                                        }`}>
-                                        {item.type}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4">{item.referenceNo}</td>
-                                <td className="px-6 py-4 text-gray-400">{item.description}</td>
-                                <td className="px-6 py-4 text-right">Rp {item.amount.toLocaleString()}</td>
+
+            <div className="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden flex flex-col">
+                <div className="px-6 py-4 border-b border-gray-700 flex-shrink-0 bg-gray-800/80 backdrop-blur">
+                    <h3 className="text-lg font-bold text-white">Interaction History</h3>
+                </div>
+                <div className="overflow-x-auto text-gray-300">
+                    <table className="w-full text-left border-separate border-spacing-0">
+                        <thead className="text-xs uppercase bg-gray-900/90 text-gray-400">
+                            <tr>
+                                <th className="px-6 py-4 font-semibold tracking-wider border-b border-gray-700">Date</th>
+                                <th className="px-6 py-4 font-semibold tracking-wider border-b border-gray-700">Type</th>
+                                <th className="px-6 py-4 font-semibold tracking-wider border-b border-gray-700">Reference</th>
+                                <th className="px-6 py-4 font-semibold tracking-wider border-b border-gray-700">Description</th>
+                                <th className="px-6 py-4 font-semibold tracking-wider border-b border-gray-700 text-right">Amount</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="divide-y divide-gray-700/50">
+                            {currentItems.map((item) => (
+                                <tr key={item.id} className="hover:bg-gray-700/30 transition-colors">
+                                    <td className="px-6 py-4 text-white font-medium whitespace-nowrap">{item.date}</td>
+                                    <td className="px-6 py-4">
+                                        <span className={`px-2.5 py-1 rounded-full text-xs font-bold border ${item.type === 'Sales' ? 'bg-green-950/40 text-green-400 border-green-800' :
+                                            item.type === 'Service' ? 'bg-blue-950/40 text-blue-400 border-blue-800' :
+                                                'bg-purple-950/40 text-purple-400 border-purple-800'
+                                            }`}>
+                                            {item.type}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 font-mono text-sm">{item.referenceNo}</td>
+                                    <td className="px-6 py-4 text-gray-400">{item.description}</td>
+                                    <td className="px-6 py-4 text-right font-medium text-white">Rp {item.amount.toLocaleString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* Pagination */}
+                {totalItems > 0 && (
+                    <div className="border-t border-gray-700 px-6">
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={setCurrentPage}
+                            totalItems={totalItems}
+                            itemsPerPage={itemsPerPage}
+                        />
+                    </div>
+                )}
             </div>
         </div>
-    </div>
-);
+    );
+}
 
 const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
     customer: Customer,
@@ -131,46 +161,46 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">Customer ID</label>
-                        <input
-                            type="text"
+                        <Input
+                            variant="text"
+                            label="Customer ID"
                             name="id"
                             value={formData.id}
-                            disabled
-                            className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-gray-500! cursor-not-allowed"
+                            disabled={true}
+                            className="!text-gray-500 cursor-not-allowed"
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">Customer Name</label>
-                        <input
-                            type="text"
+                        <Input
+                            variant="text"
+                            label="Customer Name"
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={!isEditing ? 'text-gray-300' : ''}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400 text-sm mb-2">Phone Number</label>
-                        <input
-                            type="text"
+                        <Input
+                            variant="text"
+                            label="Phone Number"
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={!isEditing ? 'text-gray-300' : ''}
                         />
                     </div>
                     <div>
-                        <label className="block text-gray-400! text-sm mb-2">Email Address</label>
-                        <input
-                            type="email"
+                        <Input
+                            variant="text"
+                            label="Email Address"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white! outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={!isEditing ? 'text-gray-300' : ''}
                         />
                     </div>
                     <div>
@@ -178,9 +208,9 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                         <select
                             name="type"
                             value={formData.type}
-                            onChange={handleChange}
+                            onChange={(e) => handleChange(e as any)}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300 appearance-none' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 !text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300 appearance-none' : 'border-gray-600'}`}
                         >
                             <option value="Individual">Individual</option>
                             <option value="Corporate">Corporate</option>
@@ -191,9 +221,9 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                         <select
                             name="status"
                             value={formData.status}
-                            onChange={handleChange}
+                            onChange={(e) => handleChange(e as any)}
                             disabled={!isEditing}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300 appearance-none' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 !text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300 appearance-none' : 'border-gray-600'}`}
                         >
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
@@ -207,7 +237,7 @@ const CustomerForm = ({ customer, isEditing, onEdit, onSave, onCancel }: {
                             onChange={handleChange}
                             disabled={!isEditing}
                             rows={3}
-                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
+                            className={`w-full bg-gray-900 border rounded-lg px-4 py-2 !text-white outline-none focus:border-orange-500 transition-colors ${!isEditing ? 'border-gray-700 text-gray-300' : 'border-gray-600'}`}
                         />
                     </div>
                 </div>
@@ -245,52 +275,60 @@ const CustomerMaster = () => {
     };
 
     return (
-        <div className="p-6 h-full flex flex-col">
-            {/* Header */}
-            <div className="mb-6">
-                <div className="flex items-center gap-2 mb-2">
-                    <h2 className="text-2xl font-bold text-white">Customer Master</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                    </svg>
+        <div className="p-6 h-full flex flex-col overflow-hidden">
+            {/* Compact Header & Search */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5 flex-shrink-0">
+                <div>
+                    <div className="flex items-center gap-2">
+                        <h2 className="text-xl font-bold text-white leading-none">Customer Master</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
+                    </div>
                 </div>
-                <p className="text-gray-400">Manage customer details and view 360° history</p>
+
+                <div className="flex gap-2 w-full md:w-auto">
+                    <div className="relative flex-1 md:w-80">
+                        <Input
+                            variant="text"
+                            placeholder="Search Customer ID, Name, Phone..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            icon={
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                                </svg>
+                            }
+                        />
+                    </div>
+                    <Button variant="primary" size="sm" onClick={handleSearch} className="whitespace-nowrap">
+                        Search
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => {
+                        setCustomer({ ...MOCK_CUSTOMER, id: 'NEW', name: '', phone: '', email: '', address: '', type: 'Individual', status: 'Active' });
+                        setIsEditing(true);
+                        setActiveTab('details');
+                    }} className="whitespace-nowrap">
+                        + New
+                    </Button>
+                </div>
             </div>
 
-            {/* Global Search */}
-            <div className="flex gap-4 mb-8 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
-                <input
-                    type="text"
-                    placeholder="Search by Customer ID, Name, Phone or Email..."
-                    className="flex-1 bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white! focus:outline-none focus:border-orange-500"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Button variant="primary" onClick={handleSearch}>
-                    Search Customer
-                </Button>
-                <Button variant="secondary" onClick={() => {
-                    setCustomer({ ...MOCK_CUSTOMER, id: 'NEW', name: '', phone: '', email: '', address: '', type: 'Individual', status: 'Active' });
-                    setIsEditing(true);
-                    setActiveTab('details');
-                }}>
-                    + New Customer
-                </Button>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex gap-4 border-b border-gray-700 mb-6">
+            {/* Compact Tabs */}
+            <div className="flex gap-6 border-b border-gray-800 mb-4 flex-shrink-0">
                 <button
                     onClick={() => setActiveTab('details')}
-                    className={`pb-3 px-2 text-sm font-medium transition-colors border-b-2 ${activeTab === 'details' ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-400 hover:text-white'}`}
+                    className={`pb-2 px-1 text-sm font-medium transition-all relative ${activeTab === 'details' ? 'text-orange-500' : 'text-gray-400 hover:text-white'}`}
                 >
                     Customer Details
+                    {activeTab === 'details' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                 </button>
                 <button
                     onClick={() => setActiveTab('360')}
-                    className={`pb-3 px-2 text-sm font-medium transition-colors border-b-2 ${activeTab === '360' ? 'border-orange-500 text-orange-500' : 'border-transparent text-gray-400 hover:text-white'}`}
+                    className={`pb-2 px-1 text-sm font-medium transition-all relative ${activeTab === '360' ? 'text-orange-500' : 'text-gray-400 hover:text-white'}`}
                 >
                     360° View
+                    {activeTab === '360' && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 rounded-t-full" />}
                 </button>
             </div>
 

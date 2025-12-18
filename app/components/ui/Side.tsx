@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router';
 import { getUser } from '~/utils/auth';
 import { checkPageAccess, type UserRole } from '~/utils/roleUtils';
@@ -11,15 +11,24 @@ interface SearchProps {
     className?: string;
 }
 
+interface MenuItem {
+    id: string;
+    label: string;
+    to?: string;
+    end?: boolean;
+    icon?: React.ReactNode;
+    subItems?: { id: string; label: string; to: string }[];
+}
+
 function Search({ value, onChange, placeholder = "Search...", className = "" }: SearchProps) {
     return (
         <div
-            className={`flex items-center gap-3 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-300 ${className}`}
+            className={`flex items-center gap-3 bg-black/20 px-4 py-2 rounded-lg shadow-sm border border-white/10 ${className}`}
         >
             {/* Icon Search */}
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-600"
+                className="h-5 w-5 text-white/50"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
@@ -38,7 +47,7 @@ function Search({ value, onChange, placeholder = "Search...", className = "" }: 
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-400"
+                className="w-full bg-transparent outline-none !text-white placeholder-white/50"
             />
         </div>
     );
@@ -52,25 +61,34 @@ interface SidebarProps {
 export default function Sidebar({ isOpen }: SidebarProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
+    const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+
+    // Load favorites from local storage on mount
+    useEffect(() => {
+        const savedFavorites = localStorage.getItem('robin_dms_favorites');
+        if (savedFavorites) {
+            setFavoriteIds(JSON.parse(savedFavorites));
+        }
+    }, []);
+
+    // Save favorites to local storage whenever they change
+    useEffect(() => {
+        localStorage.setItem('robin_dms_favorites', JSON.stringify(favoriteIds));
+    }, [favoriteIds]);
 
     // Get current user role
     const user = getUser();
     const userRole = (user?.role || 'dealer_normal_user') as UserRole;
 
-    const allMenuItems = [
-        {
-            id: 'favorite',
-            label: 'Favorite',
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-            ),
-            subItems: [
-                { id: 'create-1', label: 'Create ...', to: '#' },
-                { id: 'create-2', label: 'Create ...', to: '#' }
-            ]
-        },
+    const toggleFavorite = (itemId: string, e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setFavoriteIds(prev =>
+            prev.includes(itemId) ? prev.filter(id => id !== itemId) : [...prev, itemId]
+        );
+    };
+
+    const allMenuItems: MenuItem[] = [
         {
             id: 'dashboard',
             label: 'Dashboard',
@@ -80,17 +98,6 @@ export default function Sidebar({ isOpen }: SidebarProps) {
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-                </svg>
-            )
-        },
-        {
-            id: 'user-management',
-            label: 'User Management',
-            to: '/user-management',
-
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
                 </svg>
             )
         },
@@ -141,30 +148,6 @@ export default function Sidebar({ isOpen }: SidebarProps) {
             )
         },
         {
-            id: 'masters',
-            label: 'Masters',
-            to: '/masters',
-
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-                </svg>
-            )
-        },
-        {
-            id: 'system-settings',
-            label: 'System Settings',
-            to: '/system-settings',
-
-            icon: (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-                </svg>
-            )
-        },
-        {
             id: 'terms',
             label: 'Terms & Conditions',
             to: '/terms',
@@ -177,11 +160,36 @@ export default function Sidebar({ isOpen }: SidebarProps) {
         }
     ];
 
-    const filteredMenuItems = allMenuItems
-        .filter(item => checkPageAccess(item.id, userRole))
+    // Build the Favorite Menu Item dynamically
+    const favoriteSubItems = allMenuItems
+        .filter(item => favoriteIds.includes(item.id))
+        .map(item => ({
+            id: item.id,
+            label: item.label,
+            to: item.to || '#',
+        }));
+
+    const completeMenuItems: MenuItem[] = [
+        {
+            id: 'favorite',
+            label: 'Favorite',
+            icon: (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+            ),
+            // Use the dynamically generated subItems
+            subItems: favoriteSubItems.length > 0 ? favoriteSubItems : [{ id: 'empty', label: 'No favorites yet', to: '#' }]
+        },
+        ...allMenuItems
+    ];
+
+    const filteredMenuItems = completeMenuItems
+        .filter(item => item.id === 'favorite' || checkPageAccess(item.id, userRole))
         .filter(item => {
             if (!searchQuery) return true;
             const matchLabel = item.label.toLowerCase().includes(searchQuery.toLowerCase());
+            // Safe access subItems with optional chaining
             const matchSubItems = item.subItems?.some(sub => sub.label.toLowerCase().includes(searchQuery.toLowerCase()));
             return matchLabel || matchSubItems;
         });
@@ -193,6 +201,18 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                 : [...prev, itemId]
         );
     };
+
+    const StarButton = ({ itemId, isFavorite }: { itemId: string, isFavorite: boolean }) => (
+        <button
+            onClick={(e) => toggleFavorite(itemId, e)}
+            className={`p-1 hover:bg-white/20 rounded-full transition-colors ${isFavorite ? 'text-yellow-400' : 'text-gray-400 hover:text-white'}`}
+            title={isFavorite ? "Remove from favorite" : "Add to favorite"}
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+        </button>
+    );
 
     return (
         <div
@@ -209,7 +229,7 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                 />
             </div>
 
-            {/* Menu Items - dengan scroll, scrollbar hidden */}
+            {/* Menu Items */}
             <nav className="flex-1 overflow-y-auto scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 <style>{`
                     nav::-webkit-scrollbar {
@@ -239,11 +259,16 @@ export default function Sidebar({ isOpen }: SidebarProps) {
                             <NavLink
                                 to={item.to || "#"}
                                 end={item.end}
-                                className={({ isActive }) => `w-full flex items-center gap-3 px-4 py-3 transition-colors border-b border-white/10 ${isActive ? 'bg-[#DC143C] text-white' : 'text-white hover:bg-white/10'
-                                    }`}
+                                className={({ isActive }) => `w-full flex items-center gap-3 px-4 py-3 transition-colors border-b border-white/10 group ${isActive ? 'bg-[#DC143C] text-white' : 'text-white hover:bg-white/10'}`}
                             >
                                 {item.icon}
                                 <span className="flex-1 text-left text-sm">{item.label}</span>
+                                {/* Add Star button here, but ignore it for the 'favorite' folder itself if needed.
+                                    Actually the favorite folder is a subItems type, so it uses the upper block.
+                                    This block is for individual items. */}
+                                {item.id !== 'favorite' && (
+                                    <StarButton itemId={item.id} isFavorite={favoriteIds.includes(item.id)} />
+                                )}
                             </NavLink>
                         )}
 

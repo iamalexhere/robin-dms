@@ -3,6 +3,8 @@ import ManufacturerTree from '../ManufacturerTree';
 import HierarchyDetails, { type HierarchyNode } from '../HierarchyDetails';
 import OrgChart from '../OrgChart';
 import { Button } from '../Button';
+import { Input } from '~/components/ui/Input';
+
 import hierarchyData from '../../../data/manufacturer-hierarchy.json';
 
 // Simple SVG Icon for Hierarchy
@@ -21,6 +23,29 @@ const ManufacturerHierarchyContent = () => {
     const [selectedNode, setSelectedNode] = useState<HierarchyNode | null>(null);
     const [mode, setMode] = useState<'view' | 'edit' | 'add'>('view');
     const [viewType, setViewType] = useState<'tree' | 'chart'>('tree');
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Filter Logic
+    const filterNodes = (nodes: HierarchyNode[], query: string): HierarchyNode[] => {
+        if (!query) return nodes;
+
+        return nodes.reduce((acc: HierarchyNode[], node) => {
+            const isMatch = node.name.toLowerCase().includes(query.toLowerCase()) ||
+                (node.code && node.code.toLowerCase().includes(query.toLowerCase()));
+
+            const filteredChildren = node.children ? filterNodes(node.children, query) : [];
+
+            if (isMatch || filteredChildren.length > 0) {
+                acc.push({
+                    ...node,
+                    children: isMatch ? node.children : filteredChildren
+                });
+            }
+            return acc;
+        }, []);
+    };
+
+    const filteredData = filterNodes(data, searchQuery);
 
     // Helper to find and update node in tree
     const updateNodeInTree = (nodes: HierarchyNode[], updatedNode: HierarchyNode): HierarchyNode[] => {
@@ -95,26 +120,42 @@ const ManufacturerHierarchyContent = () => {
                     <p className="text-gray-400">Manage manufacturer structure and relationships</p>
                 </div>
 
-                {/* View Switcher */}
-                <div className="bg-[#2a2a2a] p-1 rounded-lg border border-gray-700 flex gap-1">
-                    <button
-                        onClick={() => setViewType('tree')}
-                        className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'tree'
+                {/* Actions: Search & View Switcher */}
+                <div className="flex gap-4 items-center">
+                    <div className="relative w-64">
+                        <Input
+                            variant="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Search hierarchy..."
+                            icon={
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            }
+                        />
+                    </div>
+
+                    <div className="bg-[#2a2a2a] p-1 rounded-lg border border-gray-700 flex gap-1">
+                        <button
+                            onClick={() => setViewType('tree')}
+                            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'tree'
                                 ? 'bg-blue-600 text-white'
                                 : 'text-gray-400 hover:text-white hover:bg-white/5'
-                            }`}
-                    >
-                        Tree View
-                    </button>
-                    <button
-                        onClick={() => setViewType('chart')}
-                        className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'chart'
+                                }`}
+                        >
+                            Tree View
+                        </button>
+                        <button
+                            onClick={() => setViewType('chart')}
+                            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${viewType === 'chart'
                                 ? 'bg-blue-600 text-white'
                                 : 'text-gray-400 hover:text-white hover:bg-white/5'
-                            }`}
-                    >
-                        Org Chart
-                    </button>
+                                }`}
+                        >
+                            Org Chart
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -157,7 +198,7 @@ const ManufacturerHierarchyContent = () => {
                         {/* Tree Component */}
                         <div className="flex-1 min-h-0">
                             <ManufacturerTree
-                                data={data}
+                                data={filteredData}
                                 onSelect={handleSelect}
                                 selectedNodeId={selectedNode?.id}
                             />
@@ -176,7 +217,7 @@ const ManufacturerHierarchyContent = () => {
                 </div>
             ) : (
                 <div className="flex-1 min-h-0">
-                    <OrgChart data={data} />
+                    <OrgChart data={filteredData} />
                 </div>
             )}
         </div>
